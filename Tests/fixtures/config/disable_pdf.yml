@@ -1,0 +1,6 @@
+imports:
+    - { resource: 'base.yml' }
+
+weasyprint:
+    pdf:
+        enabled: false
