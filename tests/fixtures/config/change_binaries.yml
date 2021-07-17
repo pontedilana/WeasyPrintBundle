@@ -1,0 +1,8 @@
+imports:
+    - { resource: 'base.yml' }
+
+weasyprint:
+    pdf:
+        binary: /custom/binary/for/weasyprint
+    image:
+        binary: /custom/binary/for/weasyprint

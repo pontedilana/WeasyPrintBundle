@@ -1,0 +1,137 @@
+# WeasyPrintBundle
+[PhpWeasyPrint](https://github.com/pontedilana/php-weasyprint) is a PHP (7.4+) wrapper for [WeasyPrint](https://weasyprint.org/) PDF generator.
+It allows you to generate PDF files from HTML string or URL.
+
+The WeasyPrintBundle provides a simple integration for your Symfony project.
+
+This bundle is massively inspired by [KnpLabs/KnpSnappyBundle](https://github.com/KnpLabs/KnpSnappyBundle), of which it aims to be a one-to-one substitute
+
+## Installation
+
+With [composer](https://getcomposer.org), require:
+
+`composer require pontedilana/weasyprint-bundle`
+
+Then enable it in your kernel (a flex recipe is coming soon):
+
+```php
+// config/bundles.php
+<?php
+
+return [
+    //...
+    Pontedilana\WeasyprintBundle\WeasyprintBundle::class => ['all' => true],
+    //...
+];
+```
+
+## Configuration
+If you need to change the binaries, change the instance options or even disable one or both services, you can do it through the configuration.
+
+```yaml
+# config/packages/weasyprint.yaml
+weasyprint:
+    pdf:
+        enabled:    true
+        binary:     /usr/local/bin/weasyprint
+        options:    []
+    image:
+        enabled:    true
+        binary:     /usr/local/bin/weasyprint
+        options:    []
+```
+
+If you want to change temporary folder which is ```sys_get_temp_dir()``` by default, you can use
+
+```yaml
+# config/packages/weasyprint.yaml
+weasyprint:
+    temporary_folder: "%kernel.cache_dir%/weasyprint"
+```
+
+You can also configure the timeout used by the generators with `process_timeout`:
+
+```yaml
+# config/packages/weasyprint.yaml
+weasyprint:
+    process_timeout: 20 # In seconds
+```
+
+## Usage
+
+The bundle registers two services:
+
+ - the `weasyprint.pdf` service allows you to generate pdf files.
+ - the `weasyprint.image` service allows you to generate images (works only with WeasyPrint 52.5 or lower);
+
+### Generate a pdf document from a URL
+
+```php
+// @var Pontedilana\PhpWeasyPrint\Pdf
+$weasyprintPdf->generate('https://www.github.com', '/path/to/the/file.pdf');
+```
+
+### Generate a pdf document from a twig view
+
+```php
+// @var Pontedilana\PhpWeasyPrint\Pdf
+$weasyprintPdf->generateFromHtml(
+    $this->renderView(
+        'frontend/product/pdf.html.twig',
+        [
+            'some'  => $vars,
+        ]
+    ),
+    '/path/to/the/file.pdf'
+);
+```
+
+### Render a pdf document as response from a controller
+
+```php
+use Pontedilana\WeasyprintBundle\WeasyPrint\Response\PdfResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+class SomeController extends AbstractController
+{
+    public function pdfAction(Pontedilana\PhpWeasyPrint\Pdf $weasyprintPdf)
+    {
+        $html = $this->renderView(
+            'frontend/product/pdf.html.twig',
+            [
+                'some'  => $vars,
+            ]
+        );
+
+        return new PdfResponse(
+            $weasyprintPdf->getOutputFromHtml($html),
+            'file.pdf'
+        );
+    }
+}
+```
+
+### Render a pdf document with a relative url inside like css files or images
+
+```php
+use Pontedilana\WeasyprintBundle\WeasyPrint\Response\PdfResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+class SomeController extends AbstractController
+{
+    public function pdfAction(Pontedilana\PhpWeasyPrint\Pdf $weasyprintPdf)
+    {
+        $pageUrl = $this->generateUrl('homepage', [], true); // use absolute path!
+
+        return new PdfResponse(
+            $weasyprintPdf->getOutput($pageUrl),
+            'file.pdf'
+        );
+    }
+}
+```
+
+## Credits
+
+WeasyPrintBundle and [PhpWeasyPrint](https://github.com/pontedilana/php-weasyprint) has been developed by [Pontedilana](https://www.pontedilana.it/).  
+SnappyBundle has been developed by [KnpLabs](https://knplabs.com).

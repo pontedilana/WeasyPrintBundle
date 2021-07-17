@@ -1,0 +1,5 @@
+imports:
+    - { resource: 'base.yml' }
+
+weasyprint:
+    temporary_folder: /path/to/the/tmp
