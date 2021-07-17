@@ -7,7 +7,7 @@ use Pontedilana\WeasyprintBundle\WeasyPrint\Response\ImageResponse;
 
 class ImageResponseTest extends TestCase
 {
-    public function testDefaultParameters()
+    public function testDefaultParameters(): void
     {
         $response = new ImageResponse('some_binary_output');
 
@@ -17,20 +17,20 @@ class ImageResponseTest extends TestCase
         $this->assertSame('inline; filename=output.png', str_replace('"', '', $response->headers->get('Content-Disposition')));
     }
 
-    public function testSetDifferentMimeType()
+    public function testSetDifferentMimeType(): void
     {
         $response = new ImageResponse('some_binary_output', 'test.png', 'application/octet-stream');
 
         $this->assertSame('application/octet-stream', $response->headers->get('Content-Type'));
     }
 
-    public function testSetDifferentFileName()
+    public function testSetDifferentFileName(): void
     {
         $fileName = 'test.png';
         $response = new ImageResponse('some_binary_output', $fileName);
         $fileNameFromDispositionRegex = '/.*filename=([^"]+)/';
 
-        $this->assertSame(1, preg_match($fileNameFromDispositionRegex, str_replace('"', '', $response->headers->get('Content-Disposition')), $matches), 1);
+        $this->assertSame(1, preg_match($fileNameFromDispositionRegex, str_replace('"', '', $response->headers->get('Content-Disposition')), $matches), '1');
 
         $this->assertSame($fileName, $matches[1]);
     }

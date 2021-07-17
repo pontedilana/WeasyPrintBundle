@@ -11,10 +11,8 @@ class TestKernel extends Kernel
 
     /**
      * Defines the configuration filename.
-     *
-     * @param string $filename
      */
-    public function setConfigurationFilename($filename)
+    public function setConfigurationFilename(string $filename): void
     {
         $this->configurationFilename = $filename;
     }

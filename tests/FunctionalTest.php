@@ -28,7 +28,7 @@ class FunctionalTest extends TestCase
         $this->filesystem->remove($this->kernel->getCacheDir());
     }
 
-    public function testServiceIsAvailableOutOfTheBox()
+    public function testServiceIsAvailableOutOfTheBox(): void
     {
         $this->kernel->setConfigurationFilename(__DIR__ . '/fixtures/config/out_of_the_box.yml');
         $this->kernel->boot();
@@ -50,7 +50,7 @@ class FunctionalTest extends TestCase
         $this->assertEquals('weasyprint', $image->getBinary());
     }
 
-    public function testChangeBinaries()
+    public function testChangeBinaries(): void
     {
         $this->kernel->setConfigurationFilename(__DIR__ . '/fixtures/config/change_binaries.yml');
         $this->kernel->boot();
@@ -70,7 +70,7 @@ class FunctionalTest extends TestCase
         $this->assertEquals('/custom/binary/for/weasyprint', $image->getBinary());
     }
 
-    public function testChangeTemporaryFolder()
+    public function testChangeTemporaryFolder(): void
     {
         $this->kernel->setConfigurationFilename(__DIR__ . '/fixtures/config/change_temporary_folder.yml');
         $this->kernel->boot();
@@ -84,7 +84,7 @@ class FunctionalTest extends TestCase
         $this->assertEquals('/path/to/the/tmp', $image->getTemporaryFolder());
     }
 
-    public function testDisablePdf()
+    public function testDisablePdf(): void
     {
         $this->kernel->setConfigurationFilename(__DIR__ . '/fixtures/config/disable_pdf.yml');
         $this->kernel->boot();
@@ -95,7 +95,7 @@ class FunctionalTest extends TestCase
         $this->assertTrue($container->has('weasyprint.image'), 'The image service is available.');
     }
 
-    public function testDisableImage()
+    public function testDisableImage(): void
     {
         $this->kernel->setConfigurationFilename(__DIR__ . '/fixtures/config/disable_image.yml');
         $this->kernel->boot();

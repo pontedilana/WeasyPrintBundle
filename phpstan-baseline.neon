@@ -1,0 +1,142 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Call to an undefined method Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeDefinition\\:\\:children\\(\\)\\.$#"
+			count: 1
+			path: src/DependencyInjection/Configuration.php
+
+		-
+			message: "#^Method Pontedilana\\\\WeasyprintBundle\\\\DependencyInjection\\\\WeasyprintExtension\\:\\:load\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/DependencyInjection/WeasyprintExtension.php
+
+		-
+			message: "#^Method Pontedilana\\\\WeasyprintBundle\\\\WeasyPrint\\\\Response\\\\ImageResponse\\:\\:__construct\\(\\) has parameter \\$content with no typehint specified\\.$#"
+			count: 1
+			path: src/WeasyPrint/Response/ImageResponse.php
+
+		-
+			message: "#^Method Pontedilana\\\\WeasyprintBundle\\\\WeasyPrint\\\\Response\\\\ImageResponse\\:\\:__construct\\(\\) has parameter \\$contentDisposition with no typehint specified\\.$#"
+			count: 1
+			path: src/WeasyPrint/Response/ImageResponse.php
+
+		-
+			message: "#^Method Pontedilana\\\\WeasyprintBundle\\\\WeasyPrint\\\\Response\\\\ImageResponse\\:\\:__construct\\(\\) has parameter \\$contentType with no typehint specified\\.$#"
+			count: 1
+			path: src/WeasyPrint/Response/ImageResponse.php
+
+		-
+			message: "#^Method Pontedilana\\\\WeasyprintBundle\\\\WeasyPrint\\\\Response\\\\ImageResponse\\:\\:__construct\\(\\) has parameter \\$fileName with no typehint specified\\.$#"
+			count: 1
+			path: src/WeasyPrint/Response/ImageResponse.php
+
+		-
+			message: "#^Method Pontedilana\\\\WeasyprintBundle\\\\WeasyPrint\\\\Response\\\\ImageResponse\\:\\:__construct\\(\\) has parameter \\$headers with no typehint specified\\.$#"
+			count: 1
+			path: src/WeasyPrint/Response/ImageResponse.php
+
+		-
+			message: "#^Method Pontedilana\\\\WeasyprintBundle\\\\WeasyPrint\\\\Response\\\\ImageResponse\\:\\:__construct\\(\\) has parameter \\$status with no typehint specified\\.$#"
+			count: 1
+			path: src/WeasyPrint/Response/ImageResponse.php
+
+		-
+			message: "#^Method Pontedilana\\\\WeasyprintBundle\\\\WeasyPrint\\\\Response\\\\PdfResponse\\:\\:__construct\\(\\) has parameter \\$content with no typehint specified\\.$#"
+			count: 1
+			path: src/WeasyPrint/Response/PdfResponse.php
+
+		-
+			message: "#^Method Pontedilana\\\\WeasyprintBundle\\\\WeasyPrint\\\\Response\\\\PdfResponse\\:\\:__construct\\(\\) has parameter \\$contentDisposition with no typehint specified\\.$#"
+			count: 1
+			path: src/WeasyPrint/Response/PdfResponse.php
+
+		-
+			message: "#^Method Pontedilana\\\\WeasyprintBundle\\\\WeasyPrint\\\\Response\\\\PdfResponse\\:\\:__construct\\(\\) has parameter \\$contentType with no typehint specified\\.$#"
+			count: 1
+			path: src/WeasyPrint/Response/PdfResponse.php
+
+		-
+			message: "#^Method Pontedilana\\\\WeasyprintBundle\\\\WeasyPrint\\\\Response\\\\PdfResponse\\:\\:__construct\\(\\) has parameter \\$fileName with no typehint specified\\.$#"
+			count: 1
+			path: src/WeasyPrint/Response/PdfResponse.php
+
+		-
+			message: "#^Method Pontedilana\\\\WeasyprintBundle\\\\WeasyPrint\\\\Response\\\\PdfResponse\\:\\:__construct\\(\\) has parameter \\$headers with no typehint specified\\.$#"
+			count: 1
+			path: src/WeasyPrint/Response/PdfResponse.php
+
+		-
+			message: "#^Method Pontedilana\\\\WeasyprintBundle\\\\WeasyPrint\\\\Response\\\\PdfResponse\\:\\:__construct\\(\\) has parameter \\$status with no typehint specified\\.$#"
+			count: 1
+			path: src/WeasyPrint/Response/PdfResponse.php
+
+		-
+			message: "#^Method Pontedilana\\\\WeasyprintBundle\\\\WeasyPrint\\\\Response\\\\WeasyPrintResponse\\:\\:__construct\\(\\) has parameter \\$content with no typehint specified\\.$#"
+			count: 1
+			path: src/WeasyPrint/Response/WeasyPrintResponse.php
+
+		-
+			message: "#^Method Pontedilana\\\\WeasyprintBundle\\\\WeasyPrint\\\\Response\\\\WeasyPrintResponse\\:\\:__construct\\(\\) has parameter \\$contentDisposition with no typehint specified\\.$#"
+			count: 1
+			path: src/WeasyPrint/Response/WeasyPrintResponse.php
+
+		-
+			message: "#^Method Pontedilana\\\\WeasyprintBundle\\\\WeasyPrint\\\\Response\\\\WeasyPrintResponse\\:\\:__construct\\(\\) has parameter \\$contentType with no typehint specified\\.$#"
+			count: 1
+			path: src/WeasyPrint/Response/WeasyPrintResponse.php
+
+		-
+			message: "#^Method Pontedilana\\\\WeasyprintBundle\\\\WeasyPrint\\\\Response\\\\WeasyPrintResponse\\:\\:__construct\\(\\) has parameter \\$fileName with no typehint specified\\.$#"
+			count: 1
+			path: src/WeasyPrint/Response/WeasyPrintResponse.php
+
+		-
+			message: "#^Method Pontedilana\\\\WeasyprintBundle\\\\WeasyPrint\\\\Response\\\\WeasyPrintResponse\\:\\:__construct\\(\\) has parameter \\$headers with no typehint specified\\.$#"
+			count: 1
+			path: src/WeasyPrint/Response/WeasyPrintResponse.php
+
+		-
+			message: "#^Method Pontedilana\\\\WeasyprintBundle\\\\WeasyPrint\\\\Response\\\\WeasyPrintResponse\\:\\:__construct\\(\\) has parameter \\$status with no typehint specified\\.$#"
+			count: 1
+			path: src/WeasyPrint/Response/WeasyPrintResponse.php
+
+		-
+			message: "#^Method Pontedilana\\\\WeasyprintBundle\\\\Tests\\\\DependencyInjection\\\\ConfigurationTest\\:\\:testProcessedConfiguration\\(\\) has parameter \\$configs with no typehint specified\\.$#"
+			count: 1
+			path: tests/DependencyInjection/ConfigurationTest.php
+
+		-
+			message: "#^Method Pontedilana\\\\WeasyprintBundle\\\\Tests\\\\DependencyInjection\\\\ConfigurationTest\\:\\:testProcessedConfiguration\\(\\) has parameter \\$expectedConfig with no typehint specified\\.$#"
+			count: 1
+			path: tests/DependencyInjection/ConfigurationTest.php
+
+		-
+			message: "#^Cannot call method getBinary\\(\\) on object\\|null\\.$#"
+			count: 2
+			path: tests/FunctionalTest.php
+
+		-
+			message: "#^Cannot call method getTemporaryFolder\\(\\) on object\\|null\\.$#"
+			count: 2
+			path: tests/FunctionalTest.php
+
+		-
+			message: "#^Method Pontedilana\\\\WeasyprintBundle\\\\Tests\\\\TestKernel\\:\\:registerContainerConfiguration\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/TestKernel.php
+
+		-
+			message: "#^Property Pontedilana\\\\WeasyprintBundle\\\\Tests\\\\TestKernel\\:\\:\\$configurationFilename has no typehint specified\\.$#"
+			count: 1
+			path: tests/TestKernel.php
+
+		-
+			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, string\\|null given\\.$#"
+			count: 2
+			path: tests/WeasyPrint/Response/ImageResponseTest.php
+
+		-
+			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, string\\|null given\\.$#"
+			count: 2
+			path: tests/WeasyPrint/Response/PdfResponseTest.php
+

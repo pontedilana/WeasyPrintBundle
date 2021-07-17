@@ -7,7 +7,7 @@ use Pontedilana\WeasyprintBundle\WeasyPrint\Response\PdfResponse;
 
 class PdfResponseTest extends TestCase
 {
-    public function testDefaultParameters()
+    public function testDefaultParameters(): void
     {
         $response = new PdfResponse('some_binary_output');
 
@@ -17,20 +17,20 @@ class PdfResponseTest extends TestCase
         $this->assertSame('attachment; filename=output.pdf', str_replace('"', '', $response->headers->get('Content-Disposition')));
     }
 
-    public function testSetDifferentMimeType()
+    public function testSetDifferentMimeType(): void
     {
         $response = new PdfResponse('some_binary_output', 'test.pdf', 'application/octet-stream');
 
         $this->assertSame('application/octet-stream', $response->headers->get('Content-Type'));
     }
 
-    public function testSetDifferentFileName()
+    public function testSetDifferentFileName(): void
     {
         $fileName = 'test.pdf';
         $response = new PdfResponse('some_binary_output', $fileName);
         $fileNameFromDispositionRegex = '/.*filename=([^"]+)/';
 
-        $this->assertSame(1, preg_match($fileNameFromDispositionRegex, str_replace('"', '', $response->headers->get('Content-Disposition')), $matches), 1);
+        $this->assertSame(1, preg_match($fileNameFromDispositionRegex, str_replace('"', '', $response->headers->get('Content-Disposition')), $matches), '1');
 
         $this->assertSame($fileName, $matches[1]);
     }
