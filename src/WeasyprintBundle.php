@@ -9,7 +9,7 @@ class WeasyprintBundle extends BaseBundle
     /**
      * {@inheritdoc}
      */
-    public function getNamespace()
+    public function getNamespace(): string
     {
         return __NAMESPACE__;
     }
@@ -17,7 +17,7 @@ class WeasyprintBundle extends BaseBundle
     /**
      * {@inheritdoc}
      */
-    public function getPath()
+    public function getPath(): string
     {
         return str_replace('\\', '/', __DIR__);
     }

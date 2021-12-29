@@ -9,11 +9,9 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class FunctionalTest extends TestCase
 {
-    /** @var TestKernel */
-    private $kernel;
+    private TestKernel $kernel;
 
-    /** @var Filesystem */
-    private $filesystem;
+    private Filesystem $filesystem;
 
     protected function setUp(): void
     {
