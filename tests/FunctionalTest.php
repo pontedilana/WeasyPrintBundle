@@ -59,12 +59,14 @@ class FunctionalTest extends TestCase
 
         $pdf = $container->get('weasyprint.pdf');
 
+        $this->assertInstanceof(Pdf::class, $pdf);
         $this->assertEquals('/custom/binary/for/weasyprint', $pdf->getBinary());
 
         $this->assertTrue($container->has('weasyprint.image'));
 
         $image = $container->get('weasyprint.image');
 
+        $this->assertInstanceof(Image::class, $image);
         $this->assertEquals('/custom/binary/for/weasyprint', $image->getBinary());
     }
 
@@ -76,9 +78,11 @@ class FunctionalTest extends TestCase
         $container = $this->kernel->getContainer();
 
         $pdf = $container->get('weasyprint.pdf');
+        $this->assertInstanceof(Pdf::class, $pdf);
         $this->assertEquals('/path/to/the/tmp', $pdf->getTemporaryFolder());
 
         $image = $container->get('weasyprint.image');
+        $this->assertInstanceof(Image::class, $image);
         $this->assertEquals('/path/to/the/tmp', $image->getTemporaryFolder());
     }
 

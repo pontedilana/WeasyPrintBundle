@@ -4,8 +4,14 @@ namespace Pontedilana\WeasyprintBundle\WeasyPrint\Response;
 
 class ImageResponse extends WeasyPrintResponse
 {
-    public function __construct($content, $fileName = 'output.png', $contentType = 'image/png', $contentDisposition = 'inline', $status = 200, $headers = [])
-    {
+    public function __construct(
+        string $content,
+        string $fileName = 'output.png',
+        string $contentType = 'image/png',
+        string $contentDisposition = 'inline',
+        int $status = 200,
+        array $headers = []
+    ) {
         parent::__construct($content, $fileName, $contentType, $contentDisposition, $status, $headers);
     }
 }

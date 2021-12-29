@@ -11,7 +11,7 @@ class ConfigurationTest extends TestCase
     /**
      * @dataProvider dataForProcessedConfiguration
      */
-    public function testProcessedConfiguration($configs, $expectedConfig): void
+    public function testProcessedConfiguration(array $configs, array $expectedConfig): void
     {
         $processor = new Processor();
         $configuration = new Configuration();

@@ -14,7 +14,7 @@ class PdfResponseTest extends TestCase
         $this->assertSame(200, $response->getStatusCode());
         $this->assertSame('some_binary_output', $response->getContent());
         $this->assertSame('application/pdf', $response->headers->get('Content-Type'));
-        $this->assertSame('attachment; filename=output.pdf', str_replace('"', '', $response->headers->get('Content-Disposition')));
+        $this->assertSame('attachment; filename=output.pdf', str_replace('"', '', (string)$response->headers->get('Content-Disposition')));
     }
 
     public function testSetDifferentMimeType(): void
@@ -30,7 +30,7 @@ class PdfResponseTest extends TestCase
         $response = new PdfResponse('some_binary_output', $fileName);
         $fileNameFromDispositionRegex = '/.*filename=([^"]+)/';
 
-        $this->assertSame(1, preg_match($fileNameFromDispositionRegex, str_replace('"', '', $response->headers->get('Content-Disposition')), $matches), '1');
+        $this->assertSame(1, preg_match($fileNameFromDispositionRegex, str_replace('"', '', (string)$response->headers->get('Content-Disposition')), $matches), '1');
 
         $this->assertSame($fileName, $matches[1]);
     }
