@@ -18,7 +18,7 @@ class TestKernel extends Kernel
     }
 
     /**
-     * {@inheritdoc}
+     * @return \Symfony\Component\HttpKernel\Bundle\BundleInterface[]
      */
     public function registerBundles(): array
     {

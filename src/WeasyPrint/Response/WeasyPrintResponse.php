@@ -7,6 +7,9 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class WeasyPrintResponse extends Base
 {
+    /**
+     * @param array<string, list<string|null>> $headers
+     */
     public function __construct(
         string $content,
         string $fileName,

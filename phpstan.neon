@@ -8,6 +8,5 @@ parameters:
         - src/
         - tests/
     inferPrivatePropertyTypeFromConstructor: true
-    checkMissingIterableValueType: false
     bootstrapFiles:
         - vendor/bin/.phpunit/phpunit/vendor/autoload.php
