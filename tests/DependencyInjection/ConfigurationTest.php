@@ -10,8 +10,11 @@ class ConfigurationTest extends TestCase
 {
     /**
      * @dataProvider dataForProcessedConfiguration
+     *
+     * @param non-empty-array<int, array> $configs
+     * @param non-empty-array<int, array> $expectedConfig
      */
-    public function testProcessedConfiguration($configs, $expectedConfig): void
+    public function testProcessedConfiguration(array $configs, array $expectedConfig): void
     {
         $processor = new Processor();
         $configuration = new Configuration();
@@ -20,6 +23,9 @@ class ConfigurationTest extends TestCase
         $this->assertEquals($expectedConfig, $config);
     }
 
+    /**
+     * @return non-empty-array<int, array>
+     */
     public function dataForProcessedConfiguration(): array
     {
         return [

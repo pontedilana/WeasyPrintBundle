@@ -7,7 +7,7 @@ use Symfony\Component\HttpKernel\Kernel;
 
 class TestKernel extends Kernel
 {
-    private $configurationFilename;
+    private string $configurationFilename;
 
     /**
      * Defines the configuration filename.
@@ -18,9 +18,9 @@ class TestKernel extends Kernel
     }
 
     /**
-     * {@inheritdoc}
+     * @return \Symfony\Component\HttpKernel\Bundle\BundleInterface[]
      */
-    public function registerBundles()
+    public function registerBundles(): array
     {
         return [
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
@@ -31,7 +31,7 @@ class TestKernel extends Kernel
     /**
      * {@inheritdoc}
      */
-    public function registerContainerConfiguration(LoaderInterface $loader)
+    public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load($this->configurationFilename);
     }

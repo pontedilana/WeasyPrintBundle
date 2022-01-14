@@ -7,13 +7,16 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class WeasyPrintResponse extends Base
 {
+    /**
+     * @param array<string, list<string|null>> $headers
+     */
     public function __construct(
-        $content,
-        $fileName,
-        $contentType,
-        $contentDisposition = 'attachment',
-        $status = 200,
-        $headers = []
+        string $content,
+        string $fileName,
+        ?string $contentType,
+        string $contentDisposition = 'attachment',
+        int $status = 200,
+        array $headers = []
     ) {
         $contentDispositionDirectives = [
             ResponseHeaderBag::DISPOSITION_INLINE,
