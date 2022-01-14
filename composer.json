@@ -18,7 +18,7 @@
     "require": {
         "php": "7.4.* || 8.0.* || 8.1.*",
         "pontedilana/php-weasyprint": "^0.10 || ^1.0",
-        "symfony/framework-bundle": "^4.4 || ^5.4"
+        "symfony/framework-bundle": "^5.4"
     },
     "require-dev": {
         "doctrine/annotations": "^1.11",
@@ -26,13 +26,13 @@
         "phpstan/phpstan": "^1.2",
         "phpstan/phpstan-phpunit": "^1.0",
         "phpstan/phpstan-symfony": "^1.0",
-        "symfony/asset": "^4.4 || ^5.4",
-        "symfony/finder": "^4.4 || ^5.4",
-        "symfony/phpunit-bridge": "^4.4 || ^5.4",
-        "symfony/security-csrf": "^4.4 || ^5.4",
-        "symfony/templating": "^4.4 || ^5.4",
-        "symfony/validator": "^4.4 || ^5.4",
-        "symfony/yaml": "^4.4 || ^5.4"
+        "symfony/asset": "^5.4",
+        "symfony/finder": "^5.4",
+        "symfony/phpunit-bridge": "^5.4",
+        "symfony/security-csrf": "^5.4",
+        "symfony/templating": "^5.4",
+        "symfony/validator": "^5.4",
+        "symfony/yaml": "^5.4"
     },
     "autoload": {
         "psr-4": {
