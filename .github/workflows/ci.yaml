@@ -96,32 +96,62 @@ jobs:
       - name: "Run PHPUnit Tests"
         run: "composer test"
 
-#  php8:
-#    name: PHP 8 / Symfony 6.0
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: "Checkout"
-#        uses: "actions/checkout@v2"
-#        with:
-#          fetch-depth: 2
-#
-#      - name: "Install PHP 8"
-#        uses: "shivammathur/setup-php@v2"
-#        with:
-#          php-version: "8"
-#
-#      - name: "Cache composer packages"
-#        uses: "actions/cache@v2"
-#        with:
-#          path: "~/.composer/cache"
-#          key: "php-8-composer-locked-${{ hashFiles('composer.lock') }}"
-#          restore-keys: "php-8-composer-locked-"
-#
-#      - name: "Install Symfony 6.0"
-#        run: "composer require symfony/symfony:6.0.* --no-update"
-#
-#      - name: "Install dependencies with composer"
-#        run: "composer update --no-interaction"
-#
-#      - name: "Run PHPUnit Tests"
-#        run: "composer test"
+  php-80-symfony60:
+    name: PHP 8.0 / Symfony 6.0
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
+        with:
+          fetch-depth: 2
+
+      - name: "Install PHP 8.0"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          php-version: "8.0"
+
+      - name: "Cache composer packages"
+        uses: "actions/cache@v2"
+        with:
+          path: "~/.composer/cache"
+          key: "php-8.0-symfony-6.0-composer-locked-${{ hashFiles('composer.lock') }}"
+          restore-keys: "php-8.0-symfony-6.0-composer-locked-"
+
+      - name: "Install Symfony 6.0"
+        run: "composer require symfony/symfony:6.0.* --no-update"
+
+      - name: "Install dependencies with composer"
+        run: "composer update --no-interaction"
+
+      - name: "Run PHPUnit Tests"
+        run: "composer test"
+
+  php-81-symfony60:
+    name: PHP 8.1 / Symfony 6.0
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
+        with:
+          fetch-depth: 2
+
+      - name: "Install PHP 8.1"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          php-version: "8.1"
+
+      - name: "Cache composer packages"
+        uses: "actions/cache@v2"
+        with:
+          path: "~/.composer/cache"
+          key: "php-8.1-symfony-6.0-composer-locked-${{ hashFiles('composer.lock') }}"
+          restore-keys: "php-8.1-symfony-6.0-composer-locked-"
+
+      - name: "Install Symfony 6.0"
+        run: "composer require symfony/symfony:6.0.* --no-update"
+
+      - name: "Install dependencies with composer"
+        run: "composer update --no-interaction"
+
+      - name: "Run PHPUnit Tests"
+        run: "composer test"
