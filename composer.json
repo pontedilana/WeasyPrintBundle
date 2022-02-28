@@ -18,7 +18,7 @@
     "require": {
         "php": "7.4.* || 8.0.* || 8.1.*",
         "pontedilana/php-weasyprint": "^0.10 || ^1.0",
-        "symfony/framework-bundle": "^5.4"
+        "symfony/framework-bundle": "^5.4 || ^6.0"
     },
     "require-dev": {
         "doctrine/annotations": "^1.11",
