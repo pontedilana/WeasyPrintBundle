@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
-        uses: "actions/checkout@v2"
+        uses: "actions/checkout@v3"
         with:
           fetch-depth: 2
 
@@ -21,7 +21,7 @@ jobs:
           php-version: "7.4"
 
       - name: "Cache composer packages"
-        uses: "actions/cache@v2"
+        uses: "actions/cache@v3"
         with:
           path: "~/.composer/cache"
           key: "php-7.4-composer-locked-${{ hashFiles('composer.lock') }}"
@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
-        uses: "actions/checkout@v2"
+        uses: "actions/checkout@v3"
         with:
           fetch-depth: 2
 
@@ -51,7 +51,7 @@ jobs:
           php-version: "8.0"
 
       - name: "Cache composer packages"
-        uses: "actions/cache@v2"
+        uses: "actions/cache@v3"
         with:
           path: "~/.composer/cache"
           key: "php-8.0-composer-locked-${{ hashFiles('composer.lock') }}"
@@ -71,7 +71,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
-        uses: "actions/checkout@v2"
+        uses: "actions/checkout@v3"
         with:
           fetch-depth: 2
 
@@ -81,7 +81,7 @@ jobs:
           php-version: "8.1"
 
       - name: "Cache composer packages"
-        uses: "actions/cache@v2"
+        uses: "actions/cache@v3"
         with:
           path: "~/.composer/cache"
           key: "php-8.1-composer-locked-${{ hashFiles('composer.lock') }}"
@@ -96,12 +96,42 @@ jobs:
       - name: "Run PHPUnit Tests"
         run: "composer test"
 
-  php-80-symfony60:
-    name: PHP 8.0 / Symfony 6.0
+  php-82-symfony54:
+    name: PHP 8.2 / Symfony 5.4
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
-        uses: "actions/checkout@v2"
+        uses: "actions/checkout@v3"
+        with:
+          fetch-depth: 2
+
+      - name: "Install PHP 8.2"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          php-version: "8.2"
+
+      - name: "Cache composer packages"
+        uses: "actions/cache@v3"
+        with:
+          path: "~/.composer/cache"
+          key: "php-8.2-composer-locked-${{ hashFiles('composer.lock') }}"
+          restore-keys: "php-8.2-composer-locked-"
+
+      - name: "Install Symfony 5.4"
+        run: "composer require symfony/symfony:5.4.* --no-update"
+
+      - name: "Install dependencies with composer"
+        run: "composer update --no-interaction"
+
+      - name: "Run PHPUnit Tests"
+        run: "composer test"
+
+  php-80-symfony60:
+    name: PHP 8.0 / Symfony 6.2
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v3"
         with:
           fetch-depth: 2
 
@@ -111,14 +141,14 @@ jobs:
           php-version: "8.0"
 
       - name: "Cache composer packages"
-        uses: "actions/cache@v2"
+        uses: "actions/cache@v3"
         with:
           path: "~/.composer/cache"
-          key: "php-8.0-symfony-6.0-composer-locked-${{ hashFiles('composer.lock') }}"
-          restore-keys: "php-8.0-symfony-6.0-composer-locked-"
+          key: "php-8.0-symfony-6.2-composer-locked-${{ hashFiles('composer.lock') }}"
+          restore-keys: "php-8.0-symfony-6.2-composer-locked-"
 
-      - name: "Install Symfony 6.0"
-        run: "composer require symfony/symfony:6.0.* --no-update"
+      - name: "Install Symfony 6.2"
+        run: "composer require symfony/symfony:6.2.* --no-update"
 
       - name: "Install dependencies with composer"
         run: "composer update --no-interaction"
@@ -126,12 +156,12 @@ jobs:
       - name: "Run PHPUnit Tests"
         run: "composer test"
 
-  php-81-symfony60:
-    name: PHP 8.1 / Symfony 6.0
+  php-81-symfony62:
+    name: PHP 8.1 / Symfony 6.2
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
-        uses: "actions/checkout@v2"
+        uses: "actions/checkout@v3"
         with:
           fetch-depth: 2
 
@@ -141,14 +171,44 @@ jobs:
           php-version: "8.1"
 
       - name: "Cache composer packages"
-        uses: "actions/cache@v2"
+        uses: "actions/cache@v3"
         with:
           path: "~/.composer/cache"
-          key: "php-8.1-symfony-6.0-composer-locked-${{ hashFiles('composer.lock') }}"
-          restore-keys: "php-8.1-symfony-6.0-composer-locked-"
+          key: "php-8.1-symfony-6.2-composer-locked-${{ hashFiles('composer.lock') }}"
+          restore-keys: "php-8.1-symfony-6.2-composer-locked-"
 
-      - name: "Install Symfony 6.0"
-        run: "composer require symfony/symfony:6.0.* --no-update"
+      - name: "Install Symfony 6.2"
+        run: "composer require symfony/symfony:6.2.* --no-update"
+
+      - name: "Install dependencies with composer"
+        run: "composer update --no-interaction"
+
+      - name: "Run PHPUnit Tests"
+        run: "composer test"
+
+  php-82-symfony62:
+    name: PHP 8.2 / Symfony 6.2
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v3"
+        with:
+          fetch-depth: 2
+
+      - name: "Install PHP 8.2"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          php-version: "8.2"
+
+      - name: "Cache composer packages"
+        uses: "actions/cache@v3"
+        with:
+          path: "~/.composer/cache"
+          key: "php-8.1-symfony-6.2-composer-locked-${{ hashFiles('composer.lock') }}"
+          restore-keys: "php-8.1-symfony-6.2-composer-locked-"
+
+      - name: "Install Symfony 6.2"
+        run: "composer require symfony/symfony:6.2.* --no-update"
 
       - name: "Install dependencies with composer"
         run: "composer update --no-interaction"
