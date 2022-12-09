@@ -126,36 +126,6 @@ jobs:
       - name: "Run PHPUnit Tests"
         run: "composer test"
 
-  php-80-symfony60:
-    name: PHP 8.0 / Symfony 6.2
-    runs-on: ubuntu-latest
-    steps:
-      - name: "Checkout"
-        uses: "actions/checkout@v3"
-        with:
-          fetch-depth: 2
-
-      - name: "Install PHP 8.0"
-        uses: "shivammathur/setup-php@v2"
-        with:
-          php-version: "8.0"
-
-      - name: "Cache composer packages"
-        uses: "actions/cache@v3"
-        with:
-          path: "~/.composer/cache"
-          key: "php-8.0-symfony-6.2-composer-locked-${{ hashFiles('composer.lock') }}"
-          restore-keys: "php-8.0-symfony-6.2-composer-locked-"
-
-      - name: "Install Symfony 6.2"
-        run: "composer require symfony/symfony:6.2.* --no-update"
-
-      - name: "Install dependencies with composer"
-        run: "composer update --no-interaction"
-
-      - name: "Run PHPUnit Tests"
-        run: "composer test"
-
   php-81-symfony62:
     name: PHP 8.1 / Symfony 6.2
     runs-on: ubuntu-latest
