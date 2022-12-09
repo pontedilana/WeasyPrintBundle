@@ -2,5 +2,6 @@ framework:
     secret:          ThisIsNotReallyASecretSoPleaseChangeIt
     router:          { resource: "%kernel.project_dir%/config/routing.yml", utf8: true }
     validation:      { enabled: true, enable_annotations: false }
+    http_method_override: false
 #    csrf_protection: true
 #    session:         ~
