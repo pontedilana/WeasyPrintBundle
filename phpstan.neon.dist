@@ -5,4 +5,4 @@ parameters:
         - tests/
     inferPrivatePropertyTypeFromConstructor: true
     bootstrapFiles:
-        - vendor/bin/.phpunit/phpunit/vendor/autoload.php
+        - vendor/autoload.php
