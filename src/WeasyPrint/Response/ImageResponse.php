@@ -2,6 +2,9 @@
 
 namespace Pontedilana\WeasyprintBundle\WeasyPrint\Response;
 
+/**
+ * @deprecated 2.0.0 Image generation is no longer supported by WeasyPrint
+ */
 class ImageResponse extends WeasyPrintResponse
 {
     public function __construct(
