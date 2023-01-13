@@ -5,6 +5,9 @@ namespace Pontedilana\WeasyprintBundle\Tests\WeasyPrint\Response;
 use PHPUnit\Framework\TestCase;
 use Pontedilana\WeasyprintBundle\WeasyPrint\Response\ImageResponse;
 
+/**
+ * @deprecated 2.0.0 Image generation is no longer supported by WeasyPrint
+ */
 class ImageResponseTest extends TestCase
 {
     public function testDefaultParameters(): void
