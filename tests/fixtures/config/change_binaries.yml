@@ -4,5 +4,3 @@ imports:
 weasyprint:
     pdf:
         binary: /custom/binary/for/weasyprint
-    image:
-        binary: /custom/binary/for/weasyprint

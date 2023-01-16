@@ -38,12 +38,6 @@ class ConfigurationTest extends TestCase
                         'options' => [],
                         'env' => [],
                     ],
-                    'image' => [
-                        'enabled' => false,
-                        'binary' => 'weasyprint',
-                        'options' => [],
-                        'env' => [],
-                    ],
                 ],
             ],
             [
@@ -52,12 +46,6 @@ class ConfigurationTest extends TestCase
                         'pdf' => [
                             'binary' => '/path/to/weasyprint',
                             'options' => ['foo' => 'bar'],
-                            'env' => [],
-                        ],
-                        'image' => [
-                            'enabled' => true,
-                            'binary' => '/path/to/weasyprint',
-                            'options' => ['baz' => 'bat', 'baf' => 'bag'],
                             'env' => [],
                         ],
                     ],
@@ -75,12 +63,6 @@ class ConfigurationTest extends TestCase
                         'options' => ['bak' => 'bap'],
                         'env' => [],
                     ],
-                    'image' => [
-                        'enabled' => true,
-                        'binary' => '/path/to/weasyprint',
-                        'options' => ['baz' => 'bat', 'baf' => 'bag'],
-                        'env' => [],
-                    ],
                 ],
             ],
             [
@@ -89,12 +71,6 @@ class ConfigurationTest extends TestCase
                 ],
                 [
                     'pdf' => [
-                        'enabled' => false,
-                        'binary' => 'weasyprint',
-                        'options' => [],
-                        'env' => [],
-                    ],
-                    'image' => [
                         'enabled' => false,
                         'binary' => 'weasyprint',
                         'options' => [],
@@ -111,12 +87,6 @@ class ConfigurationTest extends TestCase
                             ],
                             'env' => [],
                         ],
-                        'image' => [
-                            'options' => [
-                                'bag-baf' => 'bak',
-                            ],
-                            'env' => [],
-                        ],
                     ],
                 ],
                 [
@@ -125,14 +95,6 @@ class ConfigurationTest extends TestCase
                         'binary' => 'weasyprint',
                         'options' => [
                             'foo-bar' => 'baz',
-                        ],
-                        'env' => [],
-                    ],
-                    'image' => [
-                        'enabled' => true,
-                        'binary' => 'weasyprint',
-                        'options' => [
-                            'bag-baf' => 'bak',
                         ],
                         'env' => [],
                     ],
@@ -148,12 +110,6 @@ class ConfigurationTest extends TestCase
                     'process_timeout' => 120,
                     'pdf' => [
                         'enabled' => true,
-                        'binary' => 'weasyprint',
-                        'options' => [],
-                        'env' => [],
-                    ],
-                    'image' => [
-                        'enabled' => false,
                         'binary' => 'weasyprint',
                         'options' => [],
                         'env' => [],

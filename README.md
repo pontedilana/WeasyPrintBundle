@@ -35,10 +35,6 @@ weasyprint:
         enabled:    true
         binary:     /usr/local/bin/weasyprint
         options:    []
-    image:
-        enabled:    true
-        binary:     /usr/local/bin/weasyprint
-        options:    []
 ```
 
 If you want to change temporary folder which is ```sys_get_temp_dir()``` by default, you can use
@@ -59,10 +55,9 @@ weasyprint:
 
 ## Usage
 
-The bundle registers two services:
+The bundle registers one service:
 
  - the `weasyprint.pdf` service allows you to generate pdf files.
- - the `weasyprint.image` service allows you to generate images (works only with WeasyPrint 52.5 or lower);
 
 ### Generate a pdf document from a URL
 
