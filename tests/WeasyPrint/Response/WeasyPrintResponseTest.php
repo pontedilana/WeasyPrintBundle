@@ -10,7 +10,7 @@ class WeasyPrintResponseTest extends TestCase
     public function testExceptionMessage(): void
     {
         try {
-            new WeasyPrintResponse('', 'test.png', 'image/png', 'foo');
+            new WeasyPrintResponse('', 'test.pdf', 'application/pdf', 'foo');
         } catch (\InvalidArgumentException $e) {
             $this->assertSame('Expected one of the following directives: "inline", "attachment", but "foo" given.', $e->getMessage());
         }

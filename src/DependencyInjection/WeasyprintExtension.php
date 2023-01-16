@@ -37,22 +37,5 @@ class WeasyprintExtension extends Extension
                     ->addMethodCall('setTimeout', [$config['process_timeout']]);
             }
         }
-
-        if ($config['image']['enabled']) {
-            $loader->load('image.xml');
-
-            $container->setParameter('weasyprint.image.binary', $config['image']['binary']);
-            $container->setParameter('weasyprint.image.options', $config['image']['options']);
-            $container->setParameter('weasyprint.image.env', $config['image']['env']);
-
-            if (!empty($config['temporary_folder'])) {
-                $container->findDefinition('weasyprint.image')
-                    ->addMethodCall('setTemporaryFolder', [$config['temporary_folder']]);
-            }
-            if (!empty($config['process_timeout'])) {
-                $container->findDefinition('weasyprint.image')
-                    ->addMethodCall('setTimeout', [$config['process_timeout']]);
-            }
-        }
     }
 }

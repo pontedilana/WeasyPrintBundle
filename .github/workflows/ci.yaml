@@ -48,7 +48,6 @@ jobs:
       matrix:
         php:
           - '7.4'
-          - '8.0'
           - '8.1'
           - '8.2'
         include:
@@ -56,12 +55,9 @@ jobs:
             php: '7.4'
             symfony: 5.4.*
             composer_option: '--prefer-lowest'
-          - description: 'Symfony 6.0'
-            php: '8.0'
-            symfony: 6.0.*
-          - description: 'Symfony 6.1'
-            php: '8.1'
-            symfony: 6.1.*
+          - description: 'Symfony 5.4'
+            php: '8.2'
+            symfony: 5.4.*
           - description: 'Symfony 6.2'
             php: '8.2'
             symfony: 6.2.*
