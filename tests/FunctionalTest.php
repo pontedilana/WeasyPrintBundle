@@ -5,6 +5,7 @@ namespace Pontedilana\WeasyprintBundle\Tests;
 use PHPUnit\Framework\TestCase;
 use Pontedilana\PhpWeasyPrint\Image;
 use Pontedilana\PhpWeasyPrint\Pdf;
+use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use Symfony\Component\Filesystem\Filesystem;
 
 class FunctionalTest extends TestCase
@@ -40,12 +41,10 @@ class FunctionalTest extends TestCase
         $this->assertInstanceof(Pdf::class, $pdf);
         $this->assertEquals('weasyprint', $pdf->getBinary());
 
-        $this->assertTrue($container->has('weasyprint.image'), 'The image service is available.');
+        $this->assertFalse($container->has('weasyprint.image'), 'The image service is available.');
 
+        $this->expectException(ServiceNotFoundException::class);
         $image = $container->get('weasyprint.image');
-
-        $this->assertInstanceof(Image::class, $image);
-        $this->assertEquals('weasyprint', $image->getBinary());
     }
 
     public function testChangeBinaries(): void
@@ -80,10 +79,6 @@ class FunctionalTest extends TestCase
         $pdf = $container->get('weasyprint.pdf');
         $this->assertInstanceof(Pdf::class, $pdf);
         $this->assertEquals('/path/to/the/tmp', $pdf->getTemporaryFolder());
-
-        $image = $container->get('weasyprint.image');
-        $this->assertInstanceof(Image::class, $image);
-        $this->assertEquals('/path/to/the/tmp', $image->getTemporaryFolder());
     }
 
     public function testDisablePdf(): void
@@ -94,17 +89,16 @@ class FunctionalTest extends TestCase
         $container = $this->kernel->getContainer();
 
         $this->assertFalse($container->has('weasyprint.pdf'), 'The pdf service is NOT available.');
-        $this->assertTrue($container->has('weasyprint.image'), 'The image service is available.');
     }
 
-    public function testDisableImage(): void
+    public function testEnableImage(): void
     {
-        $this->kernel->setConfigurationFilename(__DIR__ . '/fixtures/config/disable_image.yml');
+        $this->kernel->setConfigurationFilename(__DIR__ . '/fixtures/config/enable_image.yml');
         $this->kernel->boot();
 
         $container = $this->kernel->getContainer();
 
         $this->assertTrue($container->has('weasyprint.pdf'), 'The pdf service is available.');
-        $this->assertFalse($container->has('weasyprint.image'), 'The image service is NOT available.');
+        $this->assertTrue($container->has('weasyprint.image'), 'The image service is NOT available.');
     }
 }

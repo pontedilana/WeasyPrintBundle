@@ -1,0 +1,9 @@
+parameters:
+    level: 9
+    paths:
+        - src/
+        - tests/
+    editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
+    inferPrivatePropertyTypeFromConstructor: true
+    bootstrapFiles:
+        - vendor/autoload.php
