@@ -39,7 +39,7 @@ class ConfigurationTest extends TestCase
                         'env' => [],
                     ],
                     'image' => [
-                        'enabled' => true,
+                        'enabled' => false,
                         'binary' => 'weasyprint',
                         'options' => [],
                         'env' => [],
@@ -55,6 +55,7 @@ class ConfigurationTest extends TestCase
                             'env' => [],
                         ],
                         'image' => [
+                            'enabled' => true,
                             'binary' => '/path/to/weasyprint',
                             'options' => ['baz' => 'bat', 'baf' => 'bag'],
                             'env' => [],
@@ -94,7 +95,7 @@ class ConfigurationTest extends TestCase
                         'env' => [],
                     ],
                     'image' => [
-                        'enabled' => true,
+                        'enabled' => false,
                         'binary' => 'weasyprint',
                         'options' => [],
                         'env' => [],
@@ -152,7 +153,7 @@ class ConfigurationTest extends TestCase
                         'env' => [],
                     ],
                     'image' => [
-                        'enabled' => true,
+                        'enabled' => false,
                         'binary' => 'weasyprint',
                         'options' => [],
                         'env' => [],
