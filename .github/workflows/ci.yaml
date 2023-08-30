@@ -58,12 +58,9 @@ jobs:
           - description: 'Symfony 5.4'
             php: '8.2'
             symfony: 5.4.*
-          - description: 'Symfony 6.2'
-            php: '8.2'
-            symfony: 6.2.*
           - description: 'Symfony 6.3'
             php: '8.2'
-            symfony: 6.3.*-dev
+            symfony: 6.3
     name: PHP ${{ matrix.php }} tests (${{ matrix.description }})
     steps:
       - name: Checkout
