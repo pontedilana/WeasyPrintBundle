@@ -4,7 +4,6 @@ namespace Pontedilana\WeasyprintBundle\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Pontedilana\PhpWeasyPrint\Pdf;
-use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use Symfony\Component\Filesystem\Filesystem;
 
 class FunctionalTest extends TestCase
