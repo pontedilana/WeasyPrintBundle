@@ -1,6 +1,3 @@
-imports:
-    - { resource: 'base.yml' }
-
 weasyprint:
     image:
         enabled: true

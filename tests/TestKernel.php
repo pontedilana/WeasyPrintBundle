@@ -3,22 +3,16 @@
 namespace Pontedilana\WeasyprintBundle\Tests;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\Kernel;
 
 class TestKernel extends Kernel
 {
-    private string $configurationFilename;
+    /** @var array<array-key, string> */
+    private array $configurationFilenames = [];
 
     /**
-     * Defines the configuration filename.
-     */
-    public function setConfigurationFilename(string $filename): void
-    {
-        $this->configurationFilename = $filename;
-    }
-
-    /**
-     * @return \Symfony\Component\HttpKernel\Bundle\BundleInterface[]
+     * @return BundleInterface[]
      */
     public function registerBundles(): array
     {
@@ -33,6 +27,13 @@ class TestKernel extends Kernel
      */
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
-        $loader->load($this->configurationFilename);
+        foreach ($this->configurationFilenames as $filename) {
+            $loader->load($filename);
+        }
+    }
+
+    public function addConfigurationFilename(string $filename): void
+    {
+        $this->configurationFilenames[] = $filename;
     }
 }
