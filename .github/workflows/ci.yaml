@@ -16,9 +16,9 @@ jobs:
           - description: 'Symfony 5.4'
             php: '7.4'
             symfony: 5.4.*
-          - description: 'Symfony 6.2'
+          - description: 'Symfony 6.3'
             php: '8.2'
-            symfony: 6.2.*
+            symfony: 6.3.*
     name: PHPStan - PHP ${{ matrix.php }} tests (${{ matrix.description }})
     steps:
       - name: Checkout
@@ -58,12 +58,12 @@ jobs:
           - description: 'Symfony 5.4'
             php: '8.2'
             symfony: 5.4.*
-          - description: 'Symfony 6.2'
-            php: '8.2'
-            symfony: 6.2.*
           - description: 'Symfony 6.3'
             php: '8.2'
-            symfony: 6.3.*-dev
+            symfony: 6.3
+          - description: 'Symfony 6.4'
+            php: '8.2'
+            symfony: 6.4.*-dev
     name: PHP ${{ matrix.php }} tests (${{ matrix.description }})
     steps:
       - name: Checkout
