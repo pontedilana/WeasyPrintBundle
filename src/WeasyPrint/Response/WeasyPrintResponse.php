@@ -22,7 +22,7 @@ class WeasyPrintResponse extends Base
             ResponseHeaderBag::DISPOSITION_INLINE,
             ResponseHeaderBag::DISPOSITION_ATTACHMENT,
         ];
-        if (!in_array($contentDisposition, $contentDispositionDirectives, true)) {
+        if (!\in_array($contentDisposition, $contentDispositionDirectives, true)) {
             throw new \InvalidArgumentException(sprintf('Expected one of the following directives: "%s", but "%s" given.', implode('", "', $contentDispositionDirectives), $contentDisposition));
         }
 

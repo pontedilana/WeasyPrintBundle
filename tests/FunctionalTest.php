@@ -4,8 +4,8 @@ namespace Pontedilana\WeasyprintBundle\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Pontedilana\PhpWeasyPrint\Pdf;
-use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpKernel\Kernel;
 
 class FunctionalTest extends TestCase
 {
@@ -15,7 +15,19 @@ class FunctionalTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->kernel = new TestKernel(uniqid(), false);
+        $this->kernel = new TestKernel(uniqid('prod_', false), false);
+
+        switch (Kernel::MAJOR_VERSION) {
+            case 7:
+                $this->kernel->addConfigurationFilename(__DIR__ . '/fixtures/config/base_symfony_7.yml');
+                break;
+            case 6:
+                $this->kernel->addConfigurationFilename(__DIR__ . '/fixtures/config/base_symfony_6.yml');
+                break;
+            default:
+                $this->kernel->addConfigurationFilename(__DIR__ . '/fixtures/config/base_symfony_5.yml');
+                break;
+        }
 
         $this->filesystem = new Filesystem();
         $this->filesystem->mkdir($this->kernel->getCacheDir());
@@ -28,7 +40,6 @@ class FunctionalTest extends TestCase
 
     public function testServiceIsAvailableOutOfTheBox(): void
     {
-        $this->kernel->setConfigurationFilename(__DIR__ . '/fixtures/config/out_of_the_box.yml');
         $this->kernel->boot();
 
         $container = $this->kernel->getContainer();
@@ -43,7 +54,7 @@ class FunctionalTest extends TestCase
 
     public function testChangeBinaries(): void
     {
-        $this->kernel->setConfigurationFilename(__DIR__ . '/fixtures/config/change_binaries.yml');
+        $this->kernel->addConfigurationFilename(__DIR__ . '/fixtures/config/change_binaries.yml');
         $this->kernel->boot();
 
         $container = $this->kernel->getContainer();
@@ -58,7 +69,7 @@ class FunctionalTest extends TestCase
 
     public function testChangeTemporaryFolder(): void
     {
-        $this->kernel->setConfigurationFilename(__DIR__ . '/fixtures/config/change_temporary_folder.yml');
+        $this->kernel->addConfigurationFilename(__DIR__ . '/fixtures/config/change_temporary_folder.yml');
         $this->kernel->boot();
 
         $container = $this->kernel->getContainer();
@@ -70,7 +81,7 @@ class FunctionalTest extends TestCase
 
     public function testDisablePdf(): void
     {
-        $this->kernel->setConfigurationFilename(__DIR__ . '/fixtures/config/disable_pdf.yml');
+        $this->kernel->addConfigurationFilename(__DIR__ . '/fixtures/config/disable_pdf.yml');
         $this->kernel->boot();
 
         $container = $this->kernel->getContainer();

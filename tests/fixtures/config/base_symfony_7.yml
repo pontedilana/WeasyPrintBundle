@@ -1,0 +1,10 @@
+framework:
+    secret:          ThisIsNotReallyASecretSoPleaseChangeIt
+    router:          { resource: "%kernel.project_dir%/config/routing.yml", utf8: true }
+    validation:      { enabled: true, email_validation_mode: 'html5' }
+    php_errors:      { log: true }
+    http_method_override: false
+    handle_all_throwables: true
+    annotations:     { enabled: false }
+#    csrf_protection: true
+#    session:         ~

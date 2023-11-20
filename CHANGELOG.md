@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 2.1.0 - 2023-11-20
+### Changed
+- Add support for Symfony 7 and PHP 8.3
+- Bump Symfony 6 support to >= 6.3
+
 ## 2.0.0 - 2023-01-16
 ### Changed
 - Drop support for unsupported php-weasyprint versions

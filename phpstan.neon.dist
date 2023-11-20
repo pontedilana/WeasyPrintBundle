@@ -1,9 +1,13 @@
 parameters:
-    level: 9
-    paths:
-        - src/
-        - tests/
-    editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
-    inferPrivatePropertyTypeFromConstructor: true
-    bootstrapFiles:
-        - vendor/autoload.php
+	level: 9
+	paths:
+		- src/
+		- tests/
+	inferPrivatePropertyTypeFromConstructor: true
+	bootstrapFiles:
+		- vendor/autoload.php
+
+	reportUnmatchedIgnoredErrors: false
+	ignoreErrors:
+		- '#Comparison operation ".*" between [5-6] and 6 is always (true|false)\.#'
+		- '#Else branch is unreachable because previous condition is always (true|false).#'
