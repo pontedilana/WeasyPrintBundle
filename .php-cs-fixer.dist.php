@@ -23,6 +23,7 @@ return (new PhpCsFixer\Config())
             'on_multiline' => 'ensure_fully_multiline',
             'keep_multiple_spaces_after_comma' => false,
         ],
+        'trailing_comma_in_multiline' => ['elements' => ['array_destructuring', 'arrays', 'match']],
     ])
     ->setFinder($finder)
 ;

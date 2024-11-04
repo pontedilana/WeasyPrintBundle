@@ -6,23 +6,19 @@ on:
 
 jobs:
   phpstan:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
-        php:
-          - '7.4'
-          - '8.2'
-#          - '8.3'
         include:
           - description: 'Symfony 5.4'
             php: '7.4'
             symfony: 5.4.*
-          - description: 'Symfony 6.3'
-            php: '8.2'
-            symfony: 6.3.*
-#          - description: 'Symfony 7.0'
-#            php: '8.3'
-#            symfony: 7.0.*
+          - description: 'Symfony 6.4'
+            php: '8.3'
+            symfony: 6.4.*
+          - description: 'Symfony 7.1'
+            php: '8.4'
+            symfony: 7.1.*
     name: PHPStan - PHP ${{ matrix.php }} tests (${{ matrix.description }})
     steps:
       - name: Checkout
@@ -36,45 +32,29 @@ jobs:
       - run: |
           sed -ri 's/"symfony\/(.+)": "(.+)"/"symfony\/\1": "'${{ matrix.symfony }}'"/' composer.json;
       - run: composer update --no-interaction --no-progress --ansi ${{ matrix.composer_option }}
-      - run: vendor/bin/phpstan analyse -c phpstan.neon.dist --error-format=github
+      - run: vendor/bin/phpstan analyse -c phpstan.dist.neon --error-format=github
 
-  cs-fixer:
-    runs-on: ubuntu-20.04
-    name: PHP-CS-Fixer
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Fix CS
-        uses: docker://oskarstark/php-cs-fixer-ga
   tests:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
-        php:
-          - '7.4'
-          - '8.1'
-          - '8.2'
-          - '8.3'
         include:
           - description: 'Symfony 5.4'
             php: '7.4'
-            symfony: 5.4.*
+            symfony: '5.4.*'
             composer_option: '--prefer-lowest'
           - description: 'Symfony 5.4'
-            php: '8.2'
-            symfony: 5.4.*
-          - description: 'Symfony 6.3'
-            php: '8.2'
-            symfony: 6.3
-          - description: 'Symfony 6.4'
-            php: '8.2'
-            symfony: 6.4
-          - description: 'Symfony 7.0'
             php: '8.3'
-            symfony: 7.0
+            symfony: '5.4.*'
+          - description: 'Symfony 6.4'
+            php: '8.3'
+            symfony: '6.4'
           - description: 'Symfony 7.1'
             php: '8.3'
-            symfony: 7.1
+            symfony: '7.1'
+          - description: 'Symfony 7.2'
+            php: '8.4'
+            symfony: '7.2.x-dev'
 
     name: PHP ${{ matrix.php }} tests (${{ matrix.description }})
     steps:

@@ -17,7 +17,7 @@
         </exclude>
     </coverage>
     <php>
-        <server name="SYMFONY_PHPUNIT_VERSION" value="9.5"/>
+        <server name="SYMFONY_PHPUNIT_VERSION" value="9.6"/>
     </php>
     <listeners>
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener"/>

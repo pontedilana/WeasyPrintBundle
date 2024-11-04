@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": "7.4.* || 8.0.* || 8.1.* || 8.2.* || 8.3.*",
+        "php": "7.4.* || 8.0.* || 8.1.* || 8.2.* || 8.3.* || 8.4.*",
         "pontedilana/php-weasyprint": "^1.0",
         "symfony/config": "^5.4 || ^6.3 || ^7.0",
         "symfony/dependency-injection": "^5.4 || ^6.3 || ^7.0",
@@ -25,12 +25,12 @@
     },
     "require-dev": {
         "doctrine/annotations": "^1.11 || ^2.0",
-        "friendsofphp/php-cs-fixer": "^3.13",
-        "phpstan/extension-installer": "^1.1",
-        "phpstan/phpstan": "^1.2",
-        "phpstan/phpstan-phpunit": "^1.0",
-        "phpstan/phpstan-symfony": "^1.0",
-        "phpunit/phpunit": "^9.5",
+        "friendsofphp/php-cs-fixer": "^3.64",
+        "phpstan/extension-installer": "^1.4",
+        "phpstan/phpstan": "^1.12",
+        "phpstan/phpstan-phpunit": "^1.4",
+        "phpstan/phpstan-symfony": "^1.4",
+        "phpunit/phpunit": "^9.6",
         "symfony/framework-bundle": "^5.4 || ^6.3 || ^7.0",
         "symfony/phpunit-bridge": "^5.4 || ^6.3 || ^7.0",
         "symfony/validator": "^5.4 || ^6.3 || ^7.0",
@@ -57,6 +57,6 @@
         "check-cs": "vendor/bin/php-cs-fixer fix --diff --dry-run --verbose",
         "fix-cs": "vendor/bin/php-cs-fixer fix --verbose",
         "static-analysis": "vendor/bin/phpstan analyse --ansi",
-        "test": "vendor/bin/simple-phpunit"
+        "test": "vendor/bin/phpunit"
     }
 }
