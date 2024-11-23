@@ -12,7 +12,7 @@ class WeasyPrintResponseTest extends TestCase
         try {
             new WeasyPrintResponse('', 'test.pdf', 'application/pdf', 'foo');
         } catch (\InvalidArgumentException $e) {
-            $this->assertSame('Expected one of the following directives: "inline", "attachment", but "foo" given.', $e->getMessage());
+            $this->assertSame('The disposition must be either "attachment" or "inline".', $e->getMessage());
         }
     }
 }

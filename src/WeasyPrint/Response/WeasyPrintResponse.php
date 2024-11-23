@@ -3,7 +3,6 @@
 namespace Pontedilana\WeasyprintBundle\WeasyPrint\Response;
 
 use Symfony\Component\HttpFoundation\Response as Base;
-use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class WeasyPrintResponse extends Base
 {
@@ -18,14 +17,6 @@ class WeasyPrintResponse extends Base
         int $status = 200,
         array $headers = []
     ) {
-        $contentDispositionDirectives = [
-            ResponseHeaderBag::DISPOSITION_INLINE,
-            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-        ];
-        if (!\in_array($contentDisposition, $contentDispositionDirectives, true)) {
-            throw new \InvalidArgumentException(\sprintf('Expected one of the following directives: "%s", but "%s" given.', implode('", "', $contentDispositionDirectives), $contentDisposition));
-        }
-
         parent::__construct($content, $status, $headers);
         $this->headers->add(['Content-Type' => $contentType]);
         $this->headers->add(['Content-Disposition' => $this->headers->makeDisposition($contentDisposition, $fileName)]);
