@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 2.4.0 - 2025-04-10
+### Changed
+- Add support for php-weasyprint 2.0
+### Security
+- Update `symfony/http-foundation` minimal version to mitigate [CVE-2024-50345](https://github.com/advisories/GHSA-mrqx-rp3w-jpjp)
+
 ## 2.3.0 - 2024-11-04
 ### Added
 - Added support for PHP 8.4
