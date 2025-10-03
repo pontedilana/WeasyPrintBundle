@@ -5,4 +5,3 @@ framework:
     php_errors:      { log: true }
     http_method_override: false
     handle_all_throwables: true
-    annotations:     { enabled: false }

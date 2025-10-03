@@ -6,5 +6,3 @@ framework:
     http_method_override: false
     handle_all_throwables: true
     annotations:     { enabled: false }
-#    csrf_protection: true
-#    session:         ~
