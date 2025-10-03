@@ -59,14 +59,14 @@ The bundle registers one service:
 
  - the `weasyprint.pdf` service allows you to generate pdf files.
 
-### Generate a pdf document from a URL
+### Generate a PDF document from a URL
 
 ```php
 // @var Pontedilana\PhpWeasyPrint\Pdf
 $weasyprintPdf->generate('https://www.github.com', '/path/to/the/file.pdf');
 ```
 
-### Generate a pdf document from a twig view
+### Generate a PDF document from a twig view
 
 ```php
 // @var Pontedilana\PhpWeasyPrint\Pdf
@@ -81,7 +81,7 @@ $weasyprintPdf->generateFromHtml(
 );
 ```
 
-### Render a pdf document as response from a controller
+### Render a PDF document as a response from a controller
 
 ```php
 use Pontedilana\WeasyprintBundle\WeasyPrint\Response\PdfResponse;
@@ -106,7 +106,7 @@ class SomeController extends AbstractController
 }
 ```
 
-### Render a pdf document with a relative url inside like css files or images
+### Render a PDF document with a relative url inside like CSS files or images
 
 ```php
 use Pontedilana\WeasyprintBundle\WeasyPrint\Response\PdfResponse;
@@ -128,5 +128,5 @@ class SomeController extends AbstractController
 
 ## Credits
 
-WeasyPrintBundle and [PhpWeasyPrint](https://github.com/pontedilana/php-weasyprint) has been developed by [Pontedilana](https://www.pontedilana.it/).  
+WeasyPrintBundle and [PhpWeasyPrint](https://github.com/pontedilana/php-weasyprint) have been developed by [Pontedilana](https://www.pontedilana.it/).  
 SnappyBundle has been developed by [KnpLabs](https://knplabs.com).
