@@ -18,6 +18,9 @@ class FunctionalTest extends TestCase
         $this->kernel = new TestKernel(uniqid('prod_', false), false);
 
         switch (Kernel::MAJOR_VERSION) {
+            case 8:
+                $this->kernel->addConfigurationFilename(__DIR__ . '/fixtures/config/base_symfony_8.yml');
+                break;
             case 7:
                 $this->kernel->addConfigurationFilename(__DIR__ . '/fixtures/config/base_symfony_7.yml');
                 break;
