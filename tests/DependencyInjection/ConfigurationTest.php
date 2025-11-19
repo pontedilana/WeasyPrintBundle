@@ -2,6 +2,7 @@
 
 namespace Pontedilana\WeasyprintBundle\Tests\DependencyInjection;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Pontedilana\WeasyprintBundle\DependencyInjection\Configuration;
 use Symfony\Component\Config\Definition\Processor;
@@ -9,11 +10,10 @@ use Symfony\Component\Config\Definition\Processor;
 class ConfigurationTest extends TestCase
 {
     /**
-     * @dataProvider dataForProcessedConfiguration
-     *
      * @param non-empty-array<int, array> $configs
      * @param non-empty-array<int, array> $expectedConfig
      */
+    #[DataProvider('dataForProcessedConfiguration')]
     public function testProcessedConfiguration(array $configs, array $expectedConfig): void
     {
         $processor = new Processor();
@@ -26,7 +26,7 @@ class ConfigurationTest extends TestCase
     /**
      * @return non-empty-array<int, array>
      */
-    public function dataForProcessedConfiguration(): array
+    public static function dataForProcessedConfiguration(): array
     {
         return [
             [

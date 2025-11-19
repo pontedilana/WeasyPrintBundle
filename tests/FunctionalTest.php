@@ -17,20 +17,11 @@ class FunctionalTest extends TestCase
     {
         $this->kernel = new TestKernel(uniqid('prod_', false), false);
 
-        switch (Kernel::MAJOR_VERSION) {
-            case 8:
-                $this->kernel->addConfigurationFilename(__DIR__ . '/fixtures/config/base_symfony_8.yml');
-                break;
-            case 7:
-                $this->kernel->addConfigurationFilename(__DIR__ . '/fixtures/config/base_symfony_7.yml');
-                break;
-            case 6:
-                $this->kernel->addConfigurationFilename(__DIR__ . '/fixtures/config/base_symfony_6.yml');
-                break;
-            default:
-                $this->kernel->addConfigurationFilename(__DIR__ . '/fixtures/config/base_symfony_5.yml');
-                break;
-        }
+        match (Kernel::MAJOR_VERSION) {
+            8 => $this->kernel->addConfigurationFilename(__DIR__ . '/fixtures/config/base_symfony_8.yml'),
+            7 => $this->kernel->addConfigurationFilename(__DIR__ . '/fixtures/config/base_symfony_7.yml'),
+            default => $this->kernel->addConfigurationFilename(__DIR__ . '/fixtures/config/base_symfony_6.yml'),
+        };
 
         $this->filesystem = new Filesystem();
         $this->filesystem->mkdir($this->kernel->getCacheDir());
