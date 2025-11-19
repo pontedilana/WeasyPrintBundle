@@ -42,6 +42,10 @@ jobs:
           - description: 'Symfony 7.3'
             php: '8.4'
             symfony: '7.3'
+          - description: 'Symfony 7.3'
+            php: '8.5'
+            symfony: '7.3'
+            continue-on-error: true
           - description: 'Symfony 8.0'
             php: '8.4'
             symfony: '8.0.x-dev'
