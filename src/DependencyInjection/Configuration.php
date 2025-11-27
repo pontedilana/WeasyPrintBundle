@@ -2,6 +2,7 @@
 
 namespace Pontedilana\WeasyprintBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -19,6 +20,7 @@ class Configuration implements ConfigurationInterface
         };
 
         $treeBuilder = new TreeBuilder('weasy_print');
+        /** @var ArrayNodeDefinition $rootNode */
         $rootNode = $treeBuilder->getRootNode();
 
         $rootNode

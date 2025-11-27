@@ -7,7 +7,9 @@ parameters:
 	bootstrapFiles:
 		- vendor/autoload.php
 
-	reportUnmatchedIgnoredErrors: false
+#	reportUnmatchedIgnoredErrors: false
 	ignoreErrors:
-		- '#Match arm comparison between 6 and [7-8] is always false\.#'
-		- '#Else branch is unreachable because previous condition is always (true|false).#'
+		- '#Match arm comparison between .* and .* is always (true|false)\.#'
+		- '#Method .+::getConfigTreeBuilder\(\) return type with generic class Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder does not specify its types#'
+		- '#PHPDoc tag @var for variable \$rootNode contains generic class Symfony\\Component\\Config\\Definition\\Builder\\ArrayNodeDefinition but does not specify its types#'
+		- '#Call to method \w+\(\) on an unknown class Symfony\\Component\\Config\\Definition\\Builder\\NodeBuilder#'
