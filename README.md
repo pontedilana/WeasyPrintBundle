@@ -89,7 +89,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class SomeController extends AbstractController
 {
-    public function pdfAction(Pontedilana\PhpWeasyPrint\Pdf $weasyprintPdf)
+    public function pdf(Pontedilana\PhpWeasyPrint\Pdf $weasyprintPdf)
     {
         $html = $this->renderView(
             'frontend/product/pdf.html.twig',
@@ -106,6 +106,8 @@ class SomeController extends AbstractController
 }
 ```
 
+**Note:** Filenames with accented characters (e.g., `invoice_àèìòù.pdf`) are automatically supported. The bundle generates an ASCII-safe fallback for older browsers while preserving the original UTF-8 filename for modern browsers (following [RFC 6266](https://www.rfc-editor.org/rfc/rfc6266.html)).
+
 ### Render a PDF document with a relative url inside like CSS files or images
 
 ```php
@@ -114,7 +116,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class SomeController extends AbstractController
 {
-    public function pdfAction(Pontedilana\PhpWeasyPrint\Pdf $weasyprintPdf)
+    public function pdf(Pontedilana\PhpWeasyPrint\Pdf $weasyprintPdf)
     {
         $pageUrl = $this->generateUrl('homepage', [], true); // use absolute path!
 

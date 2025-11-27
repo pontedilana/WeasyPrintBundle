@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 ### Added
 - Add Symfony 8 support
+- Add automatic ASCII fallback for filenames with unicode characters in PDF responses
 ### Removed
 - Removed support for Symfony 5.4
 - Removed support for EOL PHP versions
