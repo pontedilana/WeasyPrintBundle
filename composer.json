@@ -18,10 +18,10 @@
     "require": {
         "php": "8.2.* || 8.3.* || 8.4.* || 8.5.*",
         "pontedilana/php-weasyprint": "^2.0",
-        "symfony/config": "^6.4 || ^7.4",
-        "symfony/dependency-injection": "^6.4 || ^7.4",
-        "symfony/http-foundation": "^6.4.29 || ^7.4",
-        "symfony/http-kernel": "^6.4 || ^7.4"
+        "symfony/config": "^6.4 || ^7.4 || ^8.0",
+        "symfony/dependency-injection": "^6.4 || ^7.4 || ^8.0",
+        "symfony/http-foundation": "^6.4.29 || ^7.4 || ^8.0",
+        "symfony/http-kernel": "^6.4 || ^7.4 || ^8.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.90",
@@ -30,9 +30,9 @@
         "phpstan/phpstan-phpunit": "^2",
         "phpstan/phpstan-symfony": "^2",
         "phpunit/phpunit": "^11.5",
-        "symfony/framework-bundle": "^6.4 || ^7.4",
-        "symfony/validator": "^6.4 || ^7.4",
-        "symfony/yaml": "^6.4 || ^7.4"
+        "symfony/framework-bundle": "^6.4 || ^7.4 || ^8.0",
+        "symfony/validator": "^6.4 || ^7.4 || ^8.0",
+        "symfony/yaml": "^6.4 || ^7.4 || ^8.0"
     },
     "autoload": {
         "psr-4": {
