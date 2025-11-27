@@ -4,7 +4,6 @@ namespace Pontedilana\WeasyprintBundle\Tests\WeasyPrint\Response;
 
 use PHPUnit\Framework\TestCase;
 use Pontedilana\WeasyprintBundle\WeasyPrint\Response\PdfResponse;
-use Pontedilana\WeasyprintBundle\WeasyPrint\Response\WeasyPrintResponse;
 
 class PdfResponseTest extends TestCase
 {
@@ -136,8 +135,8 @@ class PdfResponseTest extends TestCase
         $disposition1 = $response1->headers->get('Content-Disposition');
         $disposition2 = $response2->headers->get('Content-Disposition');
 
-        self::assertStringContainsString('file1.pdf', (string) $disposition1);
-        self::assertStringContainsString('file2.pdf', (string) $disposition2);
+        self::assertStringContainsString('file1.pdf', (string)$disposition1);
+        self::assertStringContainsString('file2.pdf', (string)$disposition2);
     }
 
     public function testAllParametersAtOnce(): void
