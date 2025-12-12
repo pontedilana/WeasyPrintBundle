@@ -11,3 +11,4 @@ parameters:
 	ignoreErrors:
 		- '#Comparison operation ".*" between [5-6] and 6 is always (true|false)\.#'
 		- '#Else branch is unreachable because previous condition is always (true|false).#'
+		- '#Call to method scalarNode\(\) on an unknown class Symfony\\Component\\Config\\Definition\\Builder\\NodeBuilder<Symfony\\Component\\Config\\Definition\\Builder\\ArrayNodeDefinition>.#'
