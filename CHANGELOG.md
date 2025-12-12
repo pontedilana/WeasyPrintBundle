@@ -1,10 +1,22 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+
+## 3.0.0 - 2025-12-12
+### Added
+- Add Symfony 8 support
+- Add automatic ASCII fallback for filenames with unicode characters in PDF responses
+- Add `symfony/string` dependency for robust character transliteration
+### Changed
+- Improve test coverage with validation and edge case tests
+### Removed
+- Removed support for Symfony 5.4
+- Removed support for EOL PHP versions
+- Removed support for php-weasyprint 1
 
 ## 2.4.0 - 2025-04-10
 ### Changed

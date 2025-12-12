@@ -1,6 +1,7 @@
 <?php
 
 $finder = (new PhpCsFixer\Finder())
+    ->in(__DIR__ . '/config')
     ->in(__DIR__ . '/src')
     ->in(__DIR__ . '/tests')
 ;

@@ -6,7 +6,7 @@ use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
 class WeasyprintExtension extends Extension
 {
@@ -15,14 +15,14 @@ class WeasyprintExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
+        $loader = new PhpFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
 
         $configuration = new Configuration();
         $processor = new Processor();
         $config = $processor->processConfiguration($configuration, $configs);
 
         if ($config['pdf']['enabled']) {
-            $loader->load('pdf.xml');
+            $loader->load('pdf.php');
 
             $container->setParameter('weasyprint.pdf.binary', $config['pdf']['binary']);
             $container->setParameter('weasyprint.pdf.options', $config['pdf']['options']);

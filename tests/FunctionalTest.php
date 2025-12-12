@@ -9,83 +9,89 @@ use Symfony\Component\HttpKernel\Kernel;
 
 class FunctionalTest extends TestCase
 {
-    private TestKernel $kernel;
-
-    private Filesystem $filesystem;
-
-    protected function setUp(): void
+    private function createKernel(string ...$additionalConfigs): TestKernel
     {
-        $this->kernel = new TestKernel(uniqid('prod_', false), false);
+        $kernel = new TestKernel('test', false);
 
-        switch (Kernel::MAJOR_VERSION) {
-            case 7:
-                $this->kernel->addConfigurationFilename(__DIR__ . '/fixtures/config/base_symfony_7.yml');
-                break;
-            case 6:
-                $this->kernel->addConfigurationFilename(__DIR__ . '/fixtures/config/base_symfony_6.yml');
-                break;
-            default:
-                $this->kernel->addConfigurationFilename(__DIR__ . '/fixtures/config/base_symfony_5.yml');
-                break;
+        match (Kernel::MAJOR_VERSION) {
+            8 => $kernel->addConfigurationFilename(__DIR__ . '/fixtures/config/base_symfony_8.yml'),
+            7 => $kernel->addConfigurationFilename(__DIR__ . '/fixtures/config/base_symfony_7.yml'),
+            default => $kernel->addConfigurationFilename(__DIR__ . '/fixtures/config/base_symfony_6.yml'),
+        };
+
+        foreach ($additionalConfigs as $config) {
+            $kernel->addConfigurationFilename($config);
         }
 
-        $this->filesystem = new Filesystem();
-        $this->filesystem->mkdir($this->kernel->getCacheDir());
+        return $kernel;
     }
 
-    protected function tearDown(): void
+    private function cleanupKernel(TestKernel $kernel): void
     {
-        $this->filesystem->remove($this->kernel->getCacheDir());
+        $cacheDir = $kernel->getCacheDir();
+        $kernel->shutdown();
+
+        $filesystem = new Filesystem();
+        $filesystem->remove($cacheDir);
     }
 
     public function testServiceIsAvailableOutOfTheBox(): void
     {
-        $this->kernel->boot();
+        $kernel = $this->createKernel();
+        $kernel->boot();
 
-        $container = $this->kernel->getContainer();
+        $container = $kernel->getContainer();
 
-        $this->assertTrue($container->has('weasyprint.pdf'), 'The pdf service is available.');
+        self::assertTrue($container->has('weasyprint.pdf'));
 
         $pdf = $container->get('weasyprint.pdf');
 
-        $this->assertInstanceof(Pdf::class, $pdf);
-        $this->assertEquals('weasyprint', $pdf->getBinary());
+        self::assertInstanceOf(Pdf::class, $pdf);
+        self::assertSame('weasyprint', $pdf->getBinary());
+
+        $this->cleanupKernel($kernel);
     }
 
     public function testChangeBinaries(): void
     {
-        $this->kernel->addConfigurationFilename(__DIR__ . '/fixtures/config/change_binaries.yml');
-        $this->kernel->boot();
+        $kernel = $this->createKernel(__DIR__ . '/fixtures/config/change_binaries.yml');
+        $kernel->boot();
 
-        $container = $this->kernel->getContainer();
+        $container = $kernel->getContainer();
 
-        $this->assertTrue($container->has('weasyprint.pdf'));
+        self::assertTrue($container->has('weasyprint.pdf'));
 
         $pdf = $container->get('weasyprint.pdf');
 
-        $this->assertInstanceof(Pdf::class, $pdf);
-        $this->assertEquals('/custom/binary/for/weasyprint', $pdf->getBinary());
+        self::assertInstanceOf(Pdf::class, $pdf);
+        self::assertSame('/custom/binary/for/weasyprint', $pdf->getBinary());
+
+        $this->cleanupKernel($kernel);
     }
 
     public function testChangeTemporaryFolder(): void
     {
-        $this->kernel->addConfigurationFilename(__DIR__ . '/fixtures/config/change_temporary_folder.yml');
-        $this->kernel->boot();
+        $kernel = $this->createKernel(__DIR__ . '/fixtures/config/change_temporary_folder.yml');
+        $kernel->boot();
 
-        $container = $this->kernel->getContainer();
+        $container = $kernel->getContainer();
 
         $pdf = $container->get('weasyprint.pdf');
-        $this->assertInstanceof(Pdf::class, $pdf);
-        $this->assertEquals('/path/to/the/tmp', $pdf->getTemporaryFolder());
+        self::assertInstanceOf(Pdf::class, $pdf);
+        self::assertSame('/path/to/the/tmp', $pdf->getTemporaryFolder());
+
+        $this->cleanupKernel($kernel);
     }
 
     public function testDisablePdf(): void
     {
-        $this->kernel->addConfigurationFilename(__DIR__ . '/fixtures/config/disable_pdf.yml');
-        $this->kernel->boot();
+        $kernel = $this->createKernel(__DIR__ . '/fixtures/config/disable_pdf.yml');
+        $kernel->boot();
 
-        $container = $this->kernel->getContainer();
+        $container = $kernel->getContainer();
 
-        $this->assertFalse($container->has('weasyprint.pdf'), 'The pdf service is NOT available.');
+        self::assertFalse($container->has('weasyprint.pdf'));
+
+        $this->cleanupKernel($kernel);
     }
 }

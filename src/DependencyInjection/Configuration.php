@@ -2,6 +2,7 @@
 
 namespace Pontedilana\WeasyprintBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -9,7 +10,7 @@ class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $fixOptionKeys = function($options) {
+        $fixOptionKeys = function($options): array {
             $fixedOptions = [];
             foreach ($options as $key => $value) {
                 $fixedOptions[(string)str_replace('_', '-', $key)] = $value;
@@ -19,6 +20,7 @@ class Configuration implements ConfigurationInterface
         };
 
         $treeBuilder = new TreeBuilder('weasy_print');
+        /** @var ArrayNodeDefinition $rootNode */
         $rootNode = $treeBuilder->getRootNode();
 
         $rootNode

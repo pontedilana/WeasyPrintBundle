@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
          backupGlobals="false"
-         bootstrap="vendor/autoload.php"
+         bootstrap="tests/bootstrap.php"
          colors="true"
          failOnRisky="true"
          failOnWarning="true"
+         cacheDirectory=".phpunit.cache"
 >
-    <coverage processUncoveredFiles="true">
+    <testsuites>
+        <testsuite name="Project Test Suite">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+    <source>
         <include>
             <directory>.</directory>
         </include>
@@ -15,16 +21,5 @@
             <directory>tests</directory>
             <directory>vendor</directory>
         </exclude>
-    </coverage>
-    <php>
-        <server name="SYMFONY_PHPUNIT_VERSION" value="9.6"/>
-    </php>
-    <listeners>
-        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener"/>
-    </listeners>
-    <testsuites>
-        <testsuite name="Project Test Suite">
-            <directory>tests</directory>
-        </testsuite>
-    </testsuites>
+    </source>
 </phpunit>

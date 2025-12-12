@@ -4,64 +4,48 @@ on:
   pull_request: ~
   push: ~
 
+permissions:
+  contents: read
+
 jobs:
   phpstan:
-    runs-on: ubuntu-22.04
-    strategy:
-      matrix:
-        include:
-          - description: 'Symfony 5.4'
-            php: '7.4'
-            symfony: 5.4.*
-          - description: 'Symfony 6.4'
-            php: '8.3'
-            symfony: 6.4.*
-          - description: 'Symfony 7.1'
-            php: '8.4'
-            symfony: 7.1.*
-    name: PHPStan - PHP ${{ matrix.php }} tests (${{ matrix.description }})
+    runs-on: ubuntu-24.04
+    name: PHPStan
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           coverage: "none"
-          php-version: ${{ matrix.php }}
-      - run: |
-          sed -ri 's/"symfony\/(.+)": "(.+)"/"symfony\/\1": "'${{ matrix.symfony }}'"/' composer.json;
-      - run: composer update --no-interaction --no-progress --ansi ${{ matrix.composer_option }}
+          php-version: '8.4'
+      - run: composer update --no-interaction --no-progress --ansi
       - run: vendor/bin/phpstan analyse -c phpstan.dist.neon --error-format=github
 
   tests:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     strategy:
+      fail-fast: false
       matrix:
         include:
-          - description: 'Symfony 5.4'
-            php: '7.4'
-            symfony: '5.4.*'
-            composer_option: '--prefer-lowest'
-          - description: 'Symfony 5.4'
-            php: '8.3'
-            symfony: '5.4.*'
           - description: 'Symfony 6.4'
-            php: '8.3'
+            php: '8.2'
             symfony: '6.4'
-          - description: 'Symfony 7.1'
-            php: '8.3'
-            symfony: '7.1'
-          - description: 'Symfony 7.2'
-            php: '8.4'
-            symfony: '7.2.x-dev'
+          - description: 'Symfony 7.4'
+            php: '8.5'
+            symfony: '7.4'
+          - description: 'Symfony 8.0'
+            php: '8.5'
+            symfony: '8.0'
 
     name: PHP ${{ matrix.php }} tests (${{ matrix.description }})
+    continue-on-error: ${{ matrix.continue-on-error || false }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: ~/.composer/cache/files
           key: ${{ matrix.php }}-${{ matrix.symfony }}-${{ matrix.composer_option }}

@@ -59,14 +59,14 @@ The bundle registers one service:
 
  - the `weasyprint.pdf` service allows you to generate pdf files.
 
-### Generate a pdf document from a URL
+### Generate a PDF document from a URL
 
 ```php
 // @var Pontedilana\PhpWeasyPrint\Pdf
 $weasyprintPdf->generate('https://www.github.com', '/path/to/the/file.pdf');
 ```
 
-### Generate a pdf document from a twig view
+### Generate a PDF document from a twig view
 
 ```php
 // @var Pontedilana\PhpWeasyPrint\Pdf
@@ -81,7 +81,7 @@ $weasyprintPdf->generateFromHtml(
 );
 ```
 
-### Render a pdf document as response from a controller
+### Render a PDF document as a response from a controller
 
 ```php
 use Pontedilana\WeasyprintBundle\WeasyPrint\Response\PdfResponse;
@@ -89,7 +89,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class SomeController extends AbstractController
 {
-    public function pdfAction(Pontedilana\PhpWeasyPrint\Pdf $weasyprintPdf)
+    public function pdf(Pontedilana\PhpWeasyPrint\Pdf $weasyprintPdf)
     {
         $html = $this->renderView(
             'frontend/product/pdf.html.twig',
@@ -106,7 +106,9 @@ class SomeController extends AbstractController
 }
 ```
 
-### Render a pdf document with a relative url inside like css files or images
+**Note:** Filenames with accented characters (e.g., `invoice_àèìòù.pdf`) are automatically supported. The bundle generates an ASCII-safe fallback for older browsers while preserving the original UTF-8 filename for modern browsers (following [RFC 6266](https://www.rfc-editor.org/rfc/rfc6266.html)).
+
+### Render a PDF document with a relative url inside like CSS files or images
 
 ```php
 use Pontedilana\WeasyprintBundle\WeasyPrint\Response\PdfResponse;
@@ -114,7 +116,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class SomeController extends AbstractController
 {
-    public function pdfAction(Pontedilana\PhpWeasyPrint\Pdf $weasyprintPdf)
+    public function pdf(Pontedilana\PhpWeasyPrint\Pdf $weasyprintPdf)
     {
         $pageUrl = $this->generateUrl('homepage', [], true); // use absolute path!
 
@@ -128,5 +130,5 @@ class SomeController extends AbstractController
 
 ## Credits
 
-WeasyPrintBundle and [PhpWeasyPrint](https://github.com/pontedilana/php-weasyprint) has been developed by [Pontedilana](https://www.pontedilana.it/).  
+WeasyPrintBundle and [PhpWeasyPrint](https://github.com/pontedilana/php-weasyprint) have been developed by [Pontedilana](https://www.pontedilana.it/).  
 SnappyBundle has been developed by [KnpLabs](https://knplabs.com).
