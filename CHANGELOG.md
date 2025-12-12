@@ -5,8 +5,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+
+## 2.5.0 - 2025-12-12
 ### Added
 - Add Symfony 8 support
+- Added support for PHP 8.5
+### Security
+- Update `symfony/http-foundation` minimal version to mitigate [CVE-2025-64500](https://github.com/advisories/GHSA-3rg7-wf37-54rm)
 
 ## 2.4.0 - 2025-04-10
 ### Changed
