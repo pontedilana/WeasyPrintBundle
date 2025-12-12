@@ -39,16 +39,12 @@ jobs:
           - description: 'Symfony 6.4'
             php: '8.4'
             symfony: '6.4'
-          - description: 'Symfony 7.3'
+          - description: 'Symfony 7.4'
             php: '8.4'
-            symfony: '7.3'
-          - description: 'Symfony 7.3'
-            php: '8.5'
-            symfony: '7.3'
-            continue-on-error: true
+            symfony: '7.4'
           - description: 'Symfony 8.0'
-            php: '8.4'
-            symfony: '8.0.x-dev'
+            php: '8.5'
+            symfony: '8.0'
             continue-on-error: true
 
     name: PHP ${{ matrix.php }} tests (${{ matrix.description }})
@@ -57,7 +53,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
       - name: Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: ~/.composer/cache/files
           key: ${{ matrix.php }}-${{ matrix.symfony }}-${{ matrix.composer_option }}
