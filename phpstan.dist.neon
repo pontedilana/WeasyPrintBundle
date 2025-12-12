@@ -10,6 +10,3 @@ parameters:
 #	reportUnmatchedIgnoredErrors: false
 	ignoreErrors:
 		- '#Match arm comparison between .* and .* is always (true|false)\.#'
-		- '#Method .+::getConfigTreeBuilder\(\) return type with generic class Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder does not specify its types#'
-		- '#PHPDoc tag @var for variable \$rootNode contains generic class Symfony\\Component\\Config\\Definition\\Builder\\ArrayNodeDefinition but does not specify its types#'
-		- '#Call to method \w+\(\) on an unknown class Symfony\\Component\\Config\\Definition\\Builder\\NodeBuilder#'
