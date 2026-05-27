@@ -12,6 +12,7 @@ return static function(ContainerConfigurator $container): void {
                 param('weasyprint.pdf.binary'),
                 param('weasyprint.pdf.options'),
                 param('weasyprint.pdf.env'),
+                param('weasyprint.pdf.allowed_schemes'),
             ])
             ->call('setLogger', [service('logger')->ignoreOnInvalid()])
             ->tag('monolog.logger', ['channel' => 'weasyprint'])

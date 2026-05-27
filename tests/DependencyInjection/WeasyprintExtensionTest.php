@@ -87,9 +87,32 @@ class WeasyprintExtensionTest extends TestCase
     {
         $this->extension->load([], $this->container);
 
-        self::assertSame('weasyprint', $this->container->getParameter('weasyprint.pdf.binary'));
+        // The bare "weasyprint" default is resolved against the PATH when available.
+        $binary = $this->container->getParameter('weasyprint.pdf.binary');
+        self::assertIsString($binary);
+        self::assertStringEndsWith('weasyprint', $binary);
         self::assertSame([], $this->container->getParameter('weasyprint.pdf.options'));
         self::assertSame([], $this->container->getParameter('weasyprint.pdf.env'));
+    }
+
+    public function testAllowedSchemesDefaultsToNull(): void
+    {
+        $this->extension->load([], $this->container);
+
+        self::assertNull($this->container->getParameter('weasyprint.pdf.allowed_schemes'));
+    }
+
+    public function testAllowedSchemesAreSetWhenConfigured(): void
+    {
+        $this->extension->load([
+            [
+                'pdf' => [
+                    'allowed_schemes' => ['http', 'https', 'file'],
+                ],
+            ],
+        ], $this->container);
+
+        self::assertSame(['http', 'https', 'file'], $this->container->getParameter('weasyprint.pdf.allowed_schemes'));
     }
 
     public function testTemporaryFolderMethodCallIsAdded(): void
@@ -129,6 +152,20 @@ class WeasyprintExtensionTest extends TestCase
         $this->extension->load([], $this->container);
 
         $definition = $this->container->getDefinition('weasyprint.pdf');
+        $this->assertNotHasMethodCall($definition, 'setTimeout');
+        $this->assertNotHasMethodCall($definition, 'disableTimeout');
+    }
+
+    public function testProcessTimeoutFalseDisablesTimeout(): void
+    {
+        $this->extension->load([
+            [
+                'process_timeout' => false,
+            ],
+        ], $this->container);
+
+        $definition = $this->container->getDefinition('weasyprint.pdf');
+        $this->assertHasMethodCall($definition, 'disableTimeout', []);
         $this->assertNotHasMethodCall($definition, 'setTimeout');
     }
 
@@ -179,7 +216,7 @@ class WeasyprintExtensionTest extends TestCase
         $definition = $this->container->getDefinition('weasyprint.pdf');
         $arguments = $definition->getArguments();
 
-        self::assertCount(3, $arguments);
+        self::assertCount(4, $arguments);
     }
 
     public function testAliasPointsToCorrectService(): void
@@ -230,12 +267,13 @@ class WeasyprintExtensionTest extends TestCase
         $definition = $this->container->getDefinition('weasyprint.pdf');
         $arguments = $definition->getArguments();
 
-        self::assertCount(3, $arguments);
+        self::assertCount(4, $arguments);
 
         // Arguments should reference the parameters, not contain the actual values
         // We can't easily test this without compiling the container, but we can count them
         self::assertArrayHasKey(0, $arguments);
         self::assertArrayHasKey(1, $arguments);
         self::assertArrayHasKey(2, $arguments);
+        self::assertArrayHasKey(3, $arguments);
     }
 }

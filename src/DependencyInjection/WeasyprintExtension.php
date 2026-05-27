@@ -7,6 +7,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use Symfony\Component\Process\ExecutableFinder;
 
 class WeasyprintExtension extends Extension
 {
@@ -24,18 +25,39 @@ class WeasyprintExtension extends Extension
         if ($config['pdf']['enabled']) {
             $loader->load('pdf.php');
 
-            $container->setParameter('weasyprint.pdf.binary', $config['pdf']['binary']);
+            $container->setParameter('weasyprint.pdf.binary', $this->resolveBinary($config['pdf']['binary']));
             $container->setParameter('weasyprint.pdf.options', $config['pdf']['options']);
             $container->setParameter('weasyprint.pdf.env', $config['pdf']['env']);
+            $container->setParameter('weasyprint.pdf.allowed_schemes', [] === $config['pdf']['allowed_schemes'] ? null : $config['pdf']['allowed_schemes']);
 
             if (!empty($config['temporary_folder'])) {
                 $container->findDefinition('weasyprint.pdf')
                     ->addMethodCall('setTemporaryFolder', [$config['temporary_folder']]);
             }
-            if (!empty($config['process_timeout'])) {
+            $processTimeout = $config['process_timeout'] ?? null;
+            if (false === $processTimeout) {
                 $container->findDefinition('weasyprint.pdf')
-                    ->addMethodCall('setTimeout', [$config['process_timeout']]);
+                    ->addMethodCall('disableTimeout', []);
+            } elseif (!empty($processTimeout)) {
+                $container->findDefinition('weasyprint.pdf')
+                    ->addMethodCall('setTimeout', [$processTimeout]);
             }
         }
+    }
+
+    /**
+     * php-weasyprint verifies the binary with is_executable() before running it,
+     * which fails for a bare command name (e.g. "weasyprint") because it is not
+     * resolved against the PATH. Resolve a bare command name here so the convenient
+     * default keeps working. An explicit path (containing a directory separator) is
+     * always returned untouched so a configured path is never silently replaced.
+     */
+    private function resolveBinary(string $binary): string
+    {
+        if (str_contains($binary, \DIRECTORY_SEPARATOR)) {
+            return $binary;
+        }
+
+        return (new ExecutableFinder())->find($binary) ?? $binary;
     }
 }

@@ -6,10 +6,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 3.1.0 - 2026-05-27
+### Added
+- Add `pdf.allowed_schemes` configuration to restrict URL schemes allowed in options that accept URLs (passed as the 4th argument of the `Pdf` constructor; effective with php-weasyprint 2.6+)
+- Allow disabling the generator timeout by setting `process_timeout: false` (calls `disableTimeout()`)
+### Changed
+- Resolve a bare `pdf.binary` command name against the `PATH` (via `ExecutableFinder`) for compatibility with php-weasyprint 2.5.1+; absolute paths are used as-is
+### Security
+- Bump minimum versions of `symfony/http-foundation`, `symfony/http-kernel` and `symfony/process` to known secure releases
+
 ## 3.0.0 - 2025-12-12
 ### Added
 - Add Symfony 8 support
-- Add automatic ASCII fallback for filenames with unicode characters in PDF responses
+- Add automatic ASCII fallback for filenames with Unicode characters in PDF responses
 - Add `symfony/string` dependency for robust character transliteration
 ### Changed
 - Improve test coverage with validation and edge case tests

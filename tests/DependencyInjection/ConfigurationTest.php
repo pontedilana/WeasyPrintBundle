@@ -45,6 +45,7 @@ class ConfigurationTest extends TestCase
                         'binary' => 'weasyprint',
                         'options' => [],
                         'env' => [],
+                        'allowed_schemes' => [],
                     ],
                 ],
             ],
@@ -70,6 +71,7 @@ class ConfigurationTest extends TestCase
                         'options' => ['bak' => 'bap'],
                         'env' => [],
                         'enabled' => true,
+                        'allowed_schemes' => [],
                     ],
                 ],
             ],
@@ -83,6 +85,7 @@ class ConfigurationTest extends TestCase
                         'binary' => 'weasyprint',
                         'options' => [],
                         'env' => [],
+                        'allowed_schemes' => [],
                     ],
                 ],
             ],
@@ -105,6 +108,7 @@ class ConfigurationTest extends TestCase
                         'env' => [],
                         'enabled' => true,
                         'binary' => 'weasyprint',
+                        'allowed_schemes' => [],
                     ],
                 ],
             ],
@@ -121,6 +125,7 @@ class ConfigurationTest extends TestCase
                         'binary' => 'weasyprint',
                         'options' => [],
                         'env' => [],
+                        'allowed_schemes' => [],
                     ],
                 ],
             ],
@@ -158,6 +163,26 @@ class ConfigurationTest extends TestCase
         self::assertSame('1.7', $config['pdf']['options']['pdf-version']);
     }
 
+    public function testAllowedSchemesDefaultsToEmptyArray(): void
+    {
+        $config = $this->processor->processConfiguration($this->configuration, []);
+
+        self::assertSame([], $config['pdf']['allowed_schemes']);
+    }
+
+    public function testAllowedSchemesConfiguration(): void
+    {
+        $config = $this->processor->processConfiguration($this->configuration, [
+            [
+                'pdf' => [
+                    'allowed_schemes' => ['http', 'https', 'file'],
+                ],
+            ],
+        ]);
+
+        self::assertSame(['http', 'https', 'file'], $config['pdf']['allowed_schemes']);
+    }
+
     public function testEnvConfiguration(): void
     {
         $config = $this->processor->processConfiguration($this->configuration, [
@@ -180,7 +205,7 @@ class ConfigurationTest extends TestCase
     public function testProcessTimeoutMinimumValue(): void
     {
         $this->expectException(InvalidConfigurationException::class);
-        $this->expectExceptionMessageMatches('/process_timeout.*[Ss]hould be greater than or equal to 1/');
+        $this->expectExceptionMessageMatches('/process_timeout.*must be a positive integer or false/');
 
         $this->processor->processConfiguration($this->configuration, [
             [
@@ -192,7 +217,7 @@ class ConfigurationTest extends TestCase
     public function testProcessTimeoutNegativeValue(): void
     {
         $this->expectException(InvalidConfigurationException::class);
-        $this->expectExceptionMessageMatches('/process_timeout.*[Ss]hould be greater than or equal to 1/');
+        $this->expectExceptionMessageMatches('/process_timeout.*must be a positive integer or false/');
 
         $this->processor->processConfiguration($this->configuration, [
             [
@@ -210,6 +235,29 @@ class ConfigurationTest extends TestCase
         ]);
 
         self::assertSame(1, $config['process_timeout']);
+    }
+
+    public function testProcessTimeoutCanBeDisabled(): void
+    {
+        $config = $this->processor->processConfiguration($this->configuration, [
+            [
+                'process_timeout' => false,
+            ],
+        ]);
+
+        self::assertFalse($config['process_timeout']);
+    }
+
+    public function testProcessTimeoutRejectsNonIntegerString(): void
+    {
+        $this->expectException(InvalidConfigurationException::class);
+        $this->expectExceptionMessageMatches('/process_timeout.*must be a positive integer or false/');
+
+        $this->processor->processConfiguration($this->configuration, [
+            [
+                'process_timeout' => 'foo',
+            ],
+        ]);
     }
 
     public function testMultipleOptionsAreMergedCorrectly(): void

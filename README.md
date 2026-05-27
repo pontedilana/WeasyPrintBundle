@@ -37,6 +37,12 @@ weasyprint:
         options:    []
 ```
 
+> **Note:** prefer an **absolute path** for `binary` (e.g. `/usr/local/bin/weasyprint`).
+> Since php-weasyprint 2.5.1 the binary is verified with `is_executable()` before being
+> run, and a bare command name like `weasyprint` is not resolved against the `PATH`.
+> If you do leave a bare name, the bundle resolves it through the `PATH` for you (via
+> Symfony's `ExecutableFinder`), but an absolute path is faster and unambiguous.
+
 If you want to change temporary folder which is ```sys_get_temp_dir()``` by default, you can use
 
 ```yaml
@@ -51,6 +57,23 @@ You can also configure the timeout used by the generators with `process_timeout`
 # config/packages/weasyprint.yaml
 weasyprint:
     process_timeout: 20 # In seconds
+```
+
+Set it to `false` to disable the timeout entirely (useful when WeasyPrint runs inside a worker or queue that already manages timeouts):
+
+```yaml
+# config/packages/weasyprint.yaml
+weasyprint:
+    process_timeout: false
+```
+
+To restrict the URL schemes allowed in options that accept URLs (a defense against SSRF and local file disclosure), use `allowed_schemes`. When omitted, php-weasyprint applies its own default (`['http', 'https']`). Requires php-weasyprint 2.6+.
+
+```yaml
+# config/packages/weasyprint.yaml
+weasyprint:
+    pdf:
+        allowed_schemes: ['http', 'https', 'file']
 ```
 
 ## Usage

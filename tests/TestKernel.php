@@ -36,4 +36,15 @@ class TestKernel extends Kernel
     {
         $this->configurationFilenames[] = $filename;
     }
+
+    /**
+     * The container is dumped to a class named after the kernel/env/debug only, so
+     * two kernels booted in the same process with different configuration would
+     * reuse the first dumped container class. Vary the class name by configuration
+     * so each distinct set of config files gets its own container.
+     */
+    protected function getContainerClass(): string
+    {
+        return parent::getContainerClass() . md5(implode(',', $this->configurationFilenames));
+    }
 }
