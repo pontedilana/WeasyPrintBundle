@@ -7,6 +7,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use Symfony\Component\Process\ExecutableFinder;
 
 class WeasyprintExtension extends Extension
 {
@@ -24,7 +25,7 @@ class WeasyprintExtension extends Extension
         if ($config['pdf']['enabled']) {
             $loader->load('pdf.php');
 
-            $container->setParameter('weasyprint.pdf.binary', $config['pdf']['binary']);
+            $container->setParameter('weasyprint.pdf.binary', $this->resolveBinary($config['pdf']['binary']));
             $container->setParameter('weasyprint.pdf.options', $config['pdf']['options']);
             $container->setParameter('weasyprint.pdf.env', $config['pdf']['env']);
 
@@ -37,5 +38,20 @@ class WeasyprintExtension extends Extension
                     ->addMethodCall('setTimeout', [$config['process_timeout']]);
             }
         }
+    }
+
+    /**
+     * php-weasyprint verifies the binary with is_executable() before running it,
+     * which fails for a bare command name (e.g. "weasyprint") because it is not
+     * resolved against the PATH. Resolve it here so the convenient default keeps
+     * working; an already-executable path is returned untouched.
+     */
+    private function resolveBinary(string $binary): string
+    {
+        if (is_executable($binary)) {
+            return $binary;
+        }
+
+        return (new ExecutableFinder())->find($binary) ?? $binary;
     }
 }

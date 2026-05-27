@@ -37,6 +37,12 @@ weasyprint:
         options:    []
 ```
 
+> **Note:** prefer an **absolute path** for `binary` (e.g. `/usr/local/bin/weasyprint`).
+> Since php-weasyprint 2.5.1 the binary is verified with `is_executable()` before being
+> run, and a bare command name like `weasyprint` is not resolved against the `PATH`.
+> If you do leave a bare name, the bundle resolves it through the `PATH` for you (via
+> Symfony's `ExecutableFinder`), but an absolute path is faster and unambiguous.
+
 If you want to change temporary folder which is ```sys_get_temp_dir()``` by default, you can use
 
 ```yaml

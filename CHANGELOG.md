@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Changed
+- Resolve a bare `pdf.binary` command name against the `PATH` (via `ExecutableFinder`) for compatibility with php-weasyprint 2.5.1+; absolute paths are used as-is
 ### Security
 - Bump minimum versions of `symfony/http-foundation`, `symfony/http-kernel` and `symfony/process` to known secure releases
 
