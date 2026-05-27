@@ -10,7 +10,7 @@ class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $fixOptionKeys = function($options): array {
+        $fixOptionKeys = static function($options): array {
             $fixedOptions = [];
             foreach ($options as $key => $value) {
                 $fixedOptions[(string)str_replace('_', '-', $key)] = $value;
