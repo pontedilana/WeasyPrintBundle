@@ -87,7 +87,10 @@ class WeasyprintExtensionTest extends TestCase
     {
         $this->extension->load([], $this->container);
 
-        self::assertSame('weasyprint', $this->container->getParameter('weasyprint.pdf.binary'));
+        // The bare "weasyprint" default is resolved against the PATH when available.
+        $binary = $this->container->getParameter('weasyprint.pdf.binary');
+        self::assertIsString($binary);
+        self::assertStringEndsWith('weasyprint', $binary);
         self::assertSame([], $this->container->getParameter('weasyprint.pdf.options'));
         self::assertSame([], $this->container->getParameter('weasyprint.pdf.env'));
     }

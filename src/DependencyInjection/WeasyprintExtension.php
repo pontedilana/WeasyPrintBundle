@@ -44,12 +44,13 @@ class WeasyprintExtension extends Extension
     /**
      * php-weasyprint verifies the binary with is_executable() before running it,
      * which fails for a bare command name (e.g. "weasyprint") because it is not
-     * resolved against the PATH. Resolve it here so the convenient default keeps
-     * working; an already-executable path is returned untouched.
+     * resolved against the PATH. Resolve a bare command name here so the convenient
+     * default keeps working. An explicit path (containing a directory separator) is
+     * always returned untouched so a configured path is never silently replaced.
      */
     private function resolveBinary(string $binary): string
     {
-        if (is_executable($binary)) {
+        if (str_contains($binary, \DIRECTORY_SEPARATOR)) {
             return $binary;
         }
 

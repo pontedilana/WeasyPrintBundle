@@ -47,7 +47,11 @@ class FunctionalTest extends TestCase
         $pdf = $container->get('weasyprint.pdf');
 
         self::assertInstanceOf(Pdf::class, $pdf);
-        self::assertSame('weasyprint', $pdf->getBinary());
+        // The bare "weasyprint" default is resolved against the PATH when available,
+        // so it may be an absolute path; otherwise it stays as the bare command name.
+        $binary = $pdf->getBinary();
+        self::assertNotNull($binary);
+        self::assertStringEndsWith('weasyprint', $binary);
 
         $this->cleanupKernel($kernel);
     }
