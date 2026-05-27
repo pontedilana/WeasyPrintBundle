@@ -59,6 +59,14 @@ weasyprint:
     process_timeout: 20 # In seconds
 ```
 
+Set it to `false` to disable the timeout entirely (useful when WeasyPrint runs inside a worker or queue that already manages timeouts):
+
+```yaml
+# config/packages/weasyprint.yaml
+weasyprint:
+    process_timeout: false
+```
+
 To restrict the URL schemes allowed in options that accept URLs (a defense against SSRF and local file disclosure), use `allowed_schemes`. When omitted, php-weasyprint applies its own default (`['http', 'https']`). Requires php-weasyprint 2.6+.
 
 ```yaml

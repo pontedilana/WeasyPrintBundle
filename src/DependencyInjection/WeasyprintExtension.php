@@ -34,9 +34,13 @@ class WeasyprintExtension extends Extension
                 $container->findDefinition('weasyprint.pdf')
                     ->addMethodCall('setTemporaryFolder', [$config['temporary_folder']]);
             }
-            if (!empty($config['process_timeout'])) {
+            $processTimeout = $config['process_timeout'] ?? null;
+            if (false === $processTimeout) {
                 $container->findDefinition('weasyprint.pdf')
-                    ->addMethodCall('setTimeout', [$config['process_timeout']]);
+                    ->addMethodCall('disableTimeout', []);
+            } elseif (!empty($processTimeout)) {
+                $container->findDefinition('weasyprint.pdf')
+                    ->addMethodCall('setTimeout', [$processTimeout]);
             }
         }
     }

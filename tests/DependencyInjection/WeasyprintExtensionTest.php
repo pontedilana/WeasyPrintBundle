@@ -153,6 +153,20 @@ class WeasyprintExtensionTest extends TestCase
 
         $definition = $this->container->getDefinition('weasyprint.pdf');
         $this->assertNotHasMethodCall($definition, 'setTimeout');
+        $this->assertNotHasMethodCall($definition, 'disableTimeout');
+    }
+
+    public function testProcessTimeoutFalseDisablesTimeout(): void
+    {
+        $this->extension->load([
+            [
+                'process_timeout' => false,
+            ],
+        ], $this->container);
+
+        $definition = $this->container->getDefinition('weasyprint.pdf');
+        $this->assertHasMethodCall($definition, 'disableTimeout', []);
+        $this->assertNotHasMethodCall($definition, 'setTimeout');
     }
 
     public function testBothMethodCallsAreAddedTogether(): void
