@@ -46,6 +46,10 @@ class Configuration implements ConfigurationInterface
                         ->arrayNode('env')
                             ->prototype('scalar')->end()
                         ->end()
+                        ->arrayNode('allowed_schemes')
+                            ->info('URL schemes allowed for options that accept URLs (e.g. http, https, ftp, file). If not set, php-weasyprint defaults to [http, https].')
+                            ->prototype('scalar')->end()
+                        ->end()
                     ->end()
                 ->end()
             ->end();

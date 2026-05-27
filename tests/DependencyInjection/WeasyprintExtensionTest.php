@@ -92,6 +92,26 @@ class WeasyprintExtensionTest extends TestCase
         self::assertSame([], $this->container->getParameter('weasyprint.pdf.env'));
     }
 
+    public function testAllowedSchemesDefaultsToNull(): void
+    {
+        $this->extension->load([], $this->container);
+
+        self::assertNull($this->container->getParameter('weasyprint.pdf.allowed_schemes'));
+    }
+
+    public function testAllowedSchemesAreSetWhenConfigured(): void
+    {
+        $this->extension->load([
+            [
+                'pdf' => [
+                    'allowed_schemes' => ['http', 'https', 'file'],
+                ],
+            ],
+        ], $this->container);
+
+        self::assertSame(['http', 'https', 'file'], $this->container->getParameter('weasyprint.pdf.allowed_schemes'));
+    }
+
     public function testTemporaryFolderMethodCallIsAdded(): void
     {
         $this->extension->load([
@@ -179,7 +199,7 @@ class WeasyprintExtensionTest extends TestCase
         $definition = $this->container->getDefinition('weasyprint.pdf');
         $arguments = $definition->getArguments();
 
-        self::assertCount(3, $arguments);
+        self::assertCount(4, $arguments);
     }
 
     public function testAliasPointsToCorrectService(): void
@@ -230,12 +250,13 @@ class WeasyprintExtensionTest extends TestCase
         $definition = $this->container->getDefinition('weasyprint.pdf');
         $arguments = $definition->getArguments();
 
-        self::assertCount(3, $arguments);
+        self::assertCount(4, $arguments);
 
         // Arguments should reference the parameters, not contain the actual values
         // We can't easily test this without compiling the container, but we can count them
         self::assertArrayHasKey(0, $arguments);
         self::assertArrayHasKey(1, $arguments);
         self::assertArrayHasKey(2, $arguments);
+        self::assertArrayHasKey(3, $arguments);
     }
 }

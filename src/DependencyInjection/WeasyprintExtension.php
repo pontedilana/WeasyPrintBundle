@@ -28,6 +28,7 @@ class WeasyprintExtension extends Extension
             $container->setParameter('weasyprint.pdf.binary', $this->resolveBinary($config['pdf']['binary']));
             $container->setParameter('weasyprint.pdf.options', $config['pdf']['options']);
             $container->setParameter('weasyprint.pdf.env', $config['pdf']['env']);
+            $container->setParameter('weasyprint.pdf.allowed_schemes', [] === $config['pdf']['allowed_schemes'] ? null : $config['pdf']['allowed_schemes']);
 
             if (!empty($config['temporary_folder'])) {
                 $container->findDefinition('weasyprint.pdf')

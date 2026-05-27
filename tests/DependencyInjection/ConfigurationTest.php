@@ -45,6 +45,7 @@ class ConfigurationTest extends TestCase
                         'binary' => 'weasyprint',
                         'options' => [],
                         'env' => [],
+                        'allowed_schemes' => [],
                     ],
                 ],
             ],
@@ -70,6 +71,7 @@ class ConfigurationTest extends TestCase
                         'options' => ['bak' => 'bap'],
                         'env' => [],
                         'enabled' => true,
+                        'allowed_schemes' => [],
                     ],
                 ],
             ],
@@ -83,6 +85,7 @@ class ConfigurationTest extends TestCase
                         'binary' => 'weasyprint',
                         'options' => [],
                         'env' => [],
+                        'allowed_schemes' => [],
                     ],
                 ],
             ],
@@ -105,6 +108,7 @@ class ConfigurationTest extends TestCase
                         'env' => [],
                         'enabled' => true,
                         'binary' => 'weasyprint',
+                        'allowed_schemes' => [],
                     ],
                 ],
             ],
@@ -121,6 +125,7 @@ class ConfigurationTest extends TestCase
                         'binary' => 'weasyprint',
                         'options' => [],
                         'env' => [],
+                        'allowed_schemes' => [],
                     ],
                 ],
             ],
@@ -156,6 +161,26 @@ class ConfigurationTest extends TestCase
         self::assertArrayHasKey('pdf-version', $config['pdf']['options']);
         self::assertSame('true', $config['pdf']['options']['optimize-images']);
         self::assertSame('1.7', $config['pdf']['options']['pdf-version']);
+    }
+
+    public function testAllowedSchemesDefaultsToEmptyArray(): void
+    {
+        $config = $this->processor->processConfiguration($this->configuration, []);
+
+        self::assertSame([], $config['pdf']['allowed_schemes']);
+    }
+
+    public function testAllowedSchemesConfiguration(): void
+    {
+        $config = $this->processor->processConfiguration($this->configuration, [
+            [
+                'pdf' => [
+                    'allowed_schemes' => ['http', 'https', 'file'],
+                ],
+            ],
+        ]);
+
+        self::assertSame(['http', 'https', 'file'], $config['pdf']['allowed_schemes']);
     }
 
     public function testEnvConfiguration(): void
