@@ -35,18 +35,17 @@ jobs:
           - description: 'Symfony 7.4'
             php: '8.5'
             symfony: '7.4'
-          - description: 'Symfony 8.0'
+          - description: 'Symfony 8.1'
             php: '8.5'
-            symfony: '8.0'
+            symfony: '8.1'
           - description: 'Symfony 7.4'
             php: '8.6'
             symfony: '7.4'
-          - description: 'Symfony 8.0'
+          - description: 'Symfony 8.1'
             php: '8.6'
-            symfony: '8.0'
+            symfony: '8.1'
 
     name: PHP ${{ matrix.php }} tests (${{ matrix.description }})
-    continue-on-error: ${{ matrix.continue-on-error || false }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -54,16 +53,14 @@ jobs:
         uses: actions/cache@v5
         with:
           path: ~/.composer/cache/files
-          key: ${{ matrix.php }}-${{ matrix.symfony }}-${{ matrix.composer_option }}
+          key: ${{ matrix.php }}-${{ matrix.symfony }}
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-      - run: |
-          sed -ri 's/"symfony\/(.+)": "(.+)"/"symfony\/\1": "'${{ matrix.symfony }}'"/' composer.json;
-        if: contains(matrix.symfony, '-dev')
-      - run: composer config minimum-stability dev
-      - run: composer config prefer-stable true
-        if: matrix.symfony
-      - run: composer update --no-interaction --no-progress --ansi ${{ matrix.composer_option }}
+      - name: Pin Symfony to ${{ matrix.symfony }}
+        # Only Symfony components (constraint "^6.4 || ..."), not contracts like symfony/translation-contracts
+        run: |
+          sed -ri 's/"symfony\/([^"]+)": "\^6\.4[^"]*"/"symfony\/\1": "${{ matrix.symfony }}.*"/' composer.json
+      - run: composer update --no-interaction --no-progress --ansi
       - run: composer test
