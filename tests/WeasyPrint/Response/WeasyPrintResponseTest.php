@@ -105,6 +105,34 @@ class WeasyPrintResponseTest extends TestCase
         self::assertStringContainsString('document.pdf', $disposition);
     }
 
+    public function testAsciiFileNameWithPercentSign(): void
+    {
+        $response = new WeasyPrintResponse('content', 'Report 50%.pdf', 'application/pdf');
+
+        $disposition = $response->headers->get('Content-Disposition');
+        self::assertNotNull($disposition);
+        self::assertStringContainsString('filename=Report-50.pdf', $disposition);
+        self::assertStringContainsString("filename*=utf-8''Report%2050%25.pdf", $disposition);
+    }
+
+    public function testFileNameWithNonAsciiExtension(): void
+    {
+        $response = new WeasyPrintResponse('content', 'file.pdé', 'application/pdf');
+
+        $disposition = $response->headers->get('Content-Disposition');
+        self::assertNotNull($disposition);
+        self::assertStringContainsString('filename=file.pde', $disposition);
+    }
+
+    public function testFileNameWithTrailingNewline(): void
+    {
+        $response = new WeasyPrintResponse('content', "file.pdf\n", 'application/pdf');
+
+        $disposition = $response->headers->get('Content-Disposition');
+        self::assertNotNull($disposition);
+        self::assertStringContainsString('filename=file.pdf;', $disposition);
+    }
+
     public function testInvalidDispositionThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);

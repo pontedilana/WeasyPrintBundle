@@ -34,8 +34,8 @@ class WeasyPrintResponse extends Base
      */
     private function generateAsciiFallback(string $filename): string
     {
-        // If already ASCII, return as-is
-        if (preg_match('/^[\x20-\x7e]*$/', $filename)) {
+        // If already ASCII, return as-is ("%" and a trailing newline are excluded: makeDisposition() rejects them in the fallback)
+        if (preg_match('/^[\x20-\x24\x26-\x7e]*$/D', $filename)) {
             return $filename;
         }
 
@@ -43,9 +43,8 @@ class WeasyPrintResponse extends Base
         // Preserve the file extension
         $parts = pathinfo($filename);
         $basename = $parts['filename'];
-        $extension = isset($parts['extension']) ? '.' . $parts['extension'] : '';
-
         $slugger = new AsciiSlugger();
+        $extension = isset($parts['extension']) ? '.' . $slugger->slug($parts['extension'])->toString() : '';
         $slug = $slugger->slug($basename)->toString();
 
         return $slug . $extension;
