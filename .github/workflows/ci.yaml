@@ -11,12 +11,15 @@ jobs:
   phpstan:
     runs-on: ubuntu-24.04
     name: PHPStan
+    timeout-minutes: 15
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
         with:
           coverage: "none"
           php-version: '8.4'
@@ -25,6 +28,7 @@ jobs:
 
   tests:
     runs-on: ubuntu-24.04
+    timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
@@ -48,19 +52,23 @@ jobs:
     name: PHP ${{ matrix.php }} tests (${{ matrix.description }})
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
       - name: Cache
-        uses: actions/cache@v5
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
         with:
           path: ~/.composer/cache/files
           key: ${{ matrix.php }}-${{ matrix.symfony }}
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
         with:
           php-version: ${{ matrix.php }}
       - name: Pin Symfony to ${{ matrix.symfony }}
+        env:
+          SYMFONY_VERSION: ${{ matrix.symfony }}
         # Only Symfony components (constraint "^6.4 || ..."), not contracts like symfony/translation-contracts
         run: |
-          sed -ri 's/"symfony\/([^"]+)": "\^6\.4[^"]*"/"symfony\/\1": "${{ matrix.symfony }}.*"/' composer.json
+          sed -ri 's/"symfony\/([^"]+)": "\^6\.4[^"]*"/"symfony\/\1": "'"$SYMFONY_VERSION"'.*"/' composer.json
       - run: composer update --no-interaction --no-progress --ansi
       - run: composer test
