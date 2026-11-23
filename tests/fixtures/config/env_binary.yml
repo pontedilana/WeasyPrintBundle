@@ -1,0 +1,3 @@
+weasyprint:
+    pdf:
+        binary: '%env(WEASYPRINT_TEST_BINARY)%'

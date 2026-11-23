@@ -7,7 +7,6 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-use Symfony\Component\Process\ExecutableFinder;
 
 class WeasyprintExtension extends Extension
 {
@@ -25,7 +24,7 @@ class WeasyprintExtension extends Extension
         if ($config['pdf']['enabled']) {
             $loader->load('pdf.php');
 
-            $container->setParameter('weasyprint.pdf.binary', $this->resolveBinary($config['pdf']['binary']));
+            $container->setParameter('weasyprint.pdf.binary', $this->resolveBinary($container, $config['pdf']['binary']));
             $container->setParameter('weasyprint.pdf.options', $config['pdf']['options']);
             $container->setParameter('weasyprint.pdf.env', $config['pdf']['env']);
             $container->setParameter('weasyprint.pdf.allowed_schemes', [] === $config['pdf']['allowed_schemes'] ? null : $config['pdf']['allowed_schemes']);
@@ -46,18 +45,19 @@ class WeasyprintExtension extends Extension
     }
 
     /**
-     * php-weasyprint verifies the binary with is_executable() before running it,
-     * which fails for a bare command name (e.g. "weasyprint") because it is not
-     * resolved against the PATH. Resolve a bare command name here so the convenient
-     * default keeps working. An explicit path (containing a directory separator) is
-     * always returned untouched so a configured path is never silently replaced.
+     * A binary written in the configuration is resolved against the PATH now. A binary
+     * made of a single env var is only known at runtime, so it is handed over to
+     * BinaryEnvVarProcessor, which resolves it when the service is created.
      */
-    private function resolveBinary(string $binary): string
+    private function resolveBinary(ContainerBuilder $container, string $binary): string
     {
-        if (str_contains($binary, \DIRECTORY_SEPARATOR)) {
-            return $binary;
+        $usedEnvs = [];
+        $resolved = $container->resolveEnvPlaceholders($binary, '%%env(%s)%%', $usedEnvs);
+        $envs = array_keys($usedEnvs ?? []);
+        if (1 === \count($envs) && '%env(' . $envs[0] . ')%' === $resolved) {
+            return '%env(weasyprint_binary:' . $envs[0] . ')%';
         }
 
-        return (new ExecutableFinder())->find($binary) ?? $binary;
+        return BinaryEnvVarProcessor::resolve($binary);
     }
 }

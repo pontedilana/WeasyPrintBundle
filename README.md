@@ -76,6 +76,30 @@ weasyprint:
         allowed_schemes: ['http', 'https', 'file']
 ```
 
+### Environment variables
+
+Most configuration values accept [environment variables](https://symfony.com/doc/current/configuration/env_var_processors.html):
+
+```yaml
+# config/packages/weasyprint.yaml
+weasyprint:
+    temporary_folder: '%env(WEASYPRINT_TMP_DIR)%'
+    pdf:
+        binary: '%env(WEASYPRINT_BINARY)%'
+        options:
+            media-type: '%env(WEASYPRINT_MEDIA_TYPE)%'
+        env:
+            LANG: '%env(WEASYPRINT_LANG)%'
+        allowed_schemes: ['%env(WEASYPRINT_SCHEME)%']
+```
+
+Some limits apply:
+
+- `pdf.binary`: when the value is a single variable, a bare command name in it (e.g. `weasyprint`) is resolved against the `PATH` when the service is created. When the variable is combined with other text (e.g. `%env(WEASYPRINT_DIR)%/weasyprint`), the result must be an absolute path.
+- `pdf.allowed_schemes`: use one variable per item. A single variable for the whole list (e.g. `%env(json:...)%`) is rejected.
+- `process_timeout` does not accept environment variables: write the value directly.
+- `pdf.enabled` does not accept environment variables: it decides whether the service is registered when the container is compiled, so a variable is ignored and the service is always registered.
+
 ## Usage
 
 The bundle registers one service:

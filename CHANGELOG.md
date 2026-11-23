@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Added
+- Resolve a bare command name against the `PATH` also when `pdf.binary` is set through an environment variable (e.g. `%env(WEASYPRINT_BINARY)%`)
 ### Changed
 - Replace `/` and `\` with `-` in PDF response filenames instead of throwing an `InvalidArgumentException`
 ### Fixed

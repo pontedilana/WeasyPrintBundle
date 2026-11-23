@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Pontedilana\PhpWeasyPrint\Pdf;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Component\Process\ExecutableFinder;
 
 class FunctionalTest extends TestCase
 {
@@ -71,6 +72,23 @@ class FunctionalTest extends TestCase
         self::assertSame('/custom/binary/for/weasyprint', $pdf->getBinary());
 
         $this->cleanupKernel($kernel);
+    }
+
+    public function testBinaryFromEnvVarIsResolvedAgainstThePath(): void
+    {
+        $_SERVER['WEASYPRINT_TEST_BINARY'] = 'sh';
+        $kernel = $this->createKernel(__DIR__ . '/fixtures/config/env_binary.yml');
+
+        try {
+            $kernel->boot();
+            $pdf = $kernel->getContainer()->get('weasyprint.pdf');
+
+            self::assertInstanceOf(Pdf::class, $pdf);
+            self::assertSame((new ExecutableFinder())->find('sh'), $pdf->getBinary());
+        } finally {
+            unset($_SERVER['WEASYPRINT_TEST_BINARY']);
+            $this->cleanupKernel($kernel);
+        }
     }
 
     public function testChangeTemporaryFolder(): void

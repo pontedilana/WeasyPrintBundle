@@ -83,6 +83,26 @@ class WeasyprintExtensionTest extends TestCase
         self::assertSame(['LANG' => 'en_US.UTF-8'], $this->container->getParameter('weasyprint.pdf.env'));
     }
 
+    public function testBinaryFromEnvVarIsResolvedAtRuntime(): void
+    {
+        $placeholder = $this->container->getParameterBag()->get('env(WEASYPRINT_BINARY)');
+
+        $this->extension->load([['pdf' => ['binary' => $placeholder]]], $this->container);
+
+        self::assertSame('%env(weasyprint_binary:WEASYPRINT_BINARY)%', $this->container->getParameter('weasyprint.pdf.binary'));
+        self::assertTrue($this->container->getDefinition('weasyprint.binary_env_var_processor')->hasTag('container.env_var_processor'));
+    }
+
+    public function testBinaryWithEnvVarAndPathIsNotRewritten(): void
+    {
+        $placeholder = $this->container->getParameterBag()->get('env(WEASYPRINT_DIR)');
+        self::assertIsString($placeholder);
+
+        $this->extension->load([['pdf' => ['binary' => $placeholder . '/weasyprint']]], $this->container);
+
+        self::assertSame($placeholder . '/weasyprint', $this->container->getParameter('weasyprint.pdf.binary'));
+    }
+
     public function testDefaultParametersAreSet(): void
     {
         $this->extension->load([], $this->container);
