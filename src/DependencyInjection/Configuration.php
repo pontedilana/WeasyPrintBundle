@@ -44,7 +44,7 @@ class Configuration implements ConfigurationInterface
                             ->beforeNormalization()
                                 ->always($fixOptionKeys)
                             ->end()
-                            ->prototype('scalar')->end()
+                            ->prototype('variable')->end()
                         ->end()
                         ->arrayNode('env')
                             ->prototype('scalar')->end()

@@ -163,6 +163,21 @@ class ConfigurationTest extends TestCase
         self::assertSame('1.7', $config['pdf']['options']['pdf-version']);
     }
 
+    public function testOptionsAcceptListValues(): void
+    {
+        $config = $this->processor->processConfiguration($this->configuration, [
+            [
+                'pdf' => [
+                    'options' => [
+                        'stylesheet' => ['a.css', 'b.css'],
+                    ],
+                ],
+            ],
+        ]);
+
+        self::assertSame(['a.css', 'b.css'], $config['pdf']['options']['stylesheet']);
+    }
+
     public function testAllowedSchemesDefaultsToEmptyArray(): void
     {
         $config = $this->processor->processConfiguration($this->configuration, []);

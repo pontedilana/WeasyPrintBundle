@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Fixed
+- Allow list values in `pdf.options` (e.g. several `stylesheet` or `attachment` entries)
 - Fix `InvalidArgumentException` in PDF responses when an ASCII filename contains a `%` character or ends with a newline, or the file extension contains non-ASCII characters
 
 ## 3.1.0 - 2026-05-27
