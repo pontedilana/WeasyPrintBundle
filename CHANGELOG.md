@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Use the real `weasyprint` configuration key (instead of `weasy_print`) in configuration error messages and in the `config:dump-reference` output
 - Allow list values in `pdf.options` (e.g. several `stylesheet` or `attachment` entries)
 - Fix `InvalidArgumentException` in PDF responses when an ASCII filename contains a `%` character or ends with a newline, or the file extension contains non-ASCII characters
+### Security
+- Bump minimum version of `pontedilana/php-weasyprint` to 2.8.1, which includes its security fixes
 
 ## 3.1.0 - 2026-05-27
 ### Added

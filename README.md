@@ -67,7 +67,7 @@ weasyprint:
     process_timeout: false
 ```
 
-To restrict the URL schemes allowed in options that accept URLs (a defense against SSRF and local file disclosure), use `allowed_schemes`. When omitted, php-weasyprint applies its own default (`['http', 'https']`). Requires php-weasyprint 2.6+.
+To restrict the URL schemes allowed in options that accept URLs (a defense against SSRF and local file disclosure), use `allowed_schemes`. When omitted, php-weasyprint applies its own default (`['http', 'https']`).
 
 ```yaml
 # config/packages/weasyprint.yaml
