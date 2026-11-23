@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": "8.2.* || 8.3.* || 8.4.* || 8.5.*",
+        "php": "8.2.* || 8.3.* || 8.4.* || 8.5.* || 8.6.*",
         "pontedilana/php-weasyprint": "^2.0",
         "symfony/config": "^6.4 || ^7.4 || ^8.0",
         "symfony/dependency-injection": "^6.4 || ^7.4 || ^8.0",
