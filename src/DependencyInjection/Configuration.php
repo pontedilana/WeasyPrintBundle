@@ -19,7 +19,7 @@ class Configuration implements ConfigurationInterface
             return $fixedOptions;
         };
 
-        $treeBuilder = new TreeBuilder('weasy_print');
+        $treeBuilder = new TreeBuilder('weasyprint');
         /** @var ArrayNodeDefinition $rootNode */
         $rootNode = $treeBuilder->getRootNode();
 
