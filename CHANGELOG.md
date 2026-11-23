@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
+- Support php-weasyprint 3.0 (PHP 8.3+). Its removed options (`format`, `resolution`, `info`, `version`) and invalid `pdf-variant` values in `pdf.options` now make the `weasyprint.pdf` service creation throw an `InvalidArgumentException`
 - Resolve a bare command name against the `PATH` also when `pdf.binary` is set through an environment variable (e.g. `%env(WEASYPRINT_BINARY)%`)
 ### Changed
 - Replace `/` and `\` with `-` in PDF response filenames instead of throwing an `InvalidArgumentException`

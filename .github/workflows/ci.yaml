@@ -32,24 +32,28 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        # shortcut: 3.x rows install the develop branch until php-weasyprint 3.0.0 is released, then use '^3.0'
         include:
-          - description: 'Symfony 6.4'
-            php: '8.2'
+          - php: '8.2'
             symfony: '6.4'
-          - description: 'Symfony 7.4'
-            php: '8.5'
+            weasyprint: '^2.8.1'
+          - php: '8.3'
+            symfony: '6.4'
+            weasyprint: 'dev-develop as 3.0.0'
+          - php: '8.5'
             symfony: '7.4'
-          - description: 'Symfony 8.1'
-            php: '8.5'
+            weasyprint: '^2.8.1'
+          - php: '8.5'
             symfony: '8.1'
-          - description: 'Symfony 7.4'
-            php: '8.6'
+            weasyprint: 'dev-develop as 3.0.0'
+          - php: '8.6'
             symfony: '7.4'
-          - description: 'Symfony 8.1'
-            php: '8.6'
+            weasyprint: 'dev-develop as 3.0.0'
+          - php: '8.6'
             symfony: '8.1'
+            weasyprint: '^2.8.1'
 
-    name: PHP ${{ matrix.php }} tests (${{ matrix.description }})
+    name: PHP ${{ matrix.php }} tests (Symfony ${{ matrix.symfony }}, php-weasyprint ${{ matrix.weasyprint }})
     steps:
       - name: Checkout
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
@@ -59,7 +63,7 @@ jobs:
         uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
         with:
           path: ~/.composer/cache/files
-          key: ${{ matrix.php }}-${{ matrix.symfony }}
+          key: ${{ matrix.php }}-${{ matrix.symfony }}-${{ matrix.weasyprint }}
       - name: Setup PHP
         uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
         with:
@@ -70,5 +74,9 @@ jobs:
         # Only Symfony components (constraint "^6.4 || ..."), not contracts like symfony/translation-contracts
         run: |
           sed -ri 's/"symfony\/([^"]+)": "\^6\.4[^"]*"/"symfony\/\1": "'"$SYMFONY_VERSION"'.*"/' composer.json
+      - name: Pin php-weasyprint to ${{ matrix.weasyprint }}
+        env:
+          WEASYPRINT_VERSION: ${{ matrix.weasyprint }}
+        run: composer require --no-update --no-interaction "pontedilana/php-weasyprint:$WEASYPRINT_VERSION"
       - run: composer update --no-interaction --no-progress --ansi
       - run: composer test
