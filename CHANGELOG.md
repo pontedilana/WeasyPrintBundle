@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Changed
+- Replace `/` and `\` with `-` in PDF response filenames instead of throwing an `InvalidArgumentException`
 ### Fixed
 - Allow list values in `pdf.options` (e.g. several `stylesheet` or `attachment` entries)
 - Fix `InvalidArgumentException` in PDF responses when an ASCII filename contains a `%` character or ends with a newline, or the file extension contains non-ASCII characters

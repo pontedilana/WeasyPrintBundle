@@ -22,6 +22,10 @@ class WeasyPrintResponse extends Base
         parent::__construct($content, $status, $headers);
         $this->headers->add(['Content-Type' => $contentType]);
 
+        // makeDisposition() rejects path separators, common in document numbers (e.g. "Invoice 12/2024.pdf")
+        $fileName = str_replace(['/', '\\'], '-', $fileName);
+        $filenameFallback = str_replace(['/', '\\'], '-', $filenameFallback);
+
         if ('' === $filenameFallback) {
             $filenameFallback = $this->generateAsciiFallback($fileName);
         }

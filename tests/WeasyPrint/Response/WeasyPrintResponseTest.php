@@ -124,6 +124,15 @@ class WeasyPrintResponseTest extends TestCase
         self::assertStringContainsString('filename=file.pde', $disposition);
     }
 
+    public function testPathSeparatorsInFileNameAreReplaced(): void
+    {
+        $response = new WeasyPrintResponse('content', 'Fattura 12/2024\\A.pdf', 'application/pdf');
+
+        $disposition = $response->headers->get('Content-Disposition');
+        self::assertNotNull($disposition);
+        self::assertStringContainsString('filename="Fattura 12-2024-A.pdf"', $disposition);
+    }
+
     public function testFileNameWithTrailingNewline(): void
     {
         $response = new WeasyPrintResponse('content', "file.pdf\n", 'application/pdf');
