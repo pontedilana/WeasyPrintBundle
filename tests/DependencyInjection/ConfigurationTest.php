@@ -163,6 +163,15 @@ class ConfigurationTest extends TestCase
         self::assertSame('1.7', $config['pdf']['options']['pdf-version']);
     }
 
+    public function testNullOptionsAreTreatedAsEmpty(): void
+    {
+        $config = $this->processor->processConfiguration($this->configuration, [
+            ['pdf' => ['options' => null]],
+        ]);
+
+        self::assertSame([], $config['pdf']['options']);
+    }
+
     public function testOptionsAcceptListValues(): void
     {
         $config = $this->processor->processConfiguration($this->configuration, [

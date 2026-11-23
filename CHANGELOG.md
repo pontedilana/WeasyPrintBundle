@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Replace `/` and `\` with `-` in PDF response filenames instead of throwing an `InvalidArgumentException`
 ### Fixed
+- Fix an `ErrorException` in debug mode when `pdf.options` is empty (`options: ~` or `options:` with no entries)
 - Require `symfony/translation-contracts`, needed by the slugger that builds the ASCII fallback filename (PDF responses failed with a `LogicException` in applications that did not install it)
 - Use the real `weasyprint` configuration key (instead of `weasy_print`) in configuration error messages and in the `config:dump-reference` output
 - Allow list values in `pdf.options` (e.g. several `stylesheet` or `attachment` entries)

@@ -12,7 +12,7 @@ class Configuration implements ConfigurationInterface
     {
         $fixOptionKeys = static function($options): array {
             $fixedOptions = [];
-            foreach ($options as $key => $value) {
+            foreach ($options ?? [] as $key => $value) {
                 $fixedOptions[(string)str_replace('_', '-', $key)] = $value;
             }
 
