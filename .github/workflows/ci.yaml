@@ -38,6 +38,12 @@ jobs:
           - description: 'Symfony 8.0'
             php: '8.5'
             symfony: '8.0'
+          - description: 'Symfony 7.4'
+            php: '8.6'
+            symfony: '7.4'
+          - description: 'Symfony 8.0'
+            php: '8.6'
+            symfony: '8.0'
 
     name: PHP ${{ matrix.php }} tests (${{ matrix.description }})
     continue-on-error: ${{ matrix.continue-on-error || false }}
