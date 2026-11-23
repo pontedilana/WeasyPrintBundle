@@ -1,5 +1,5 @@
 # WeasyPrintBundle
-[PhpWeasyPrint](https://github.com/pontedilana/php-weasyprint) is a PHP (7.4+) wrapper for [WeasyPrint](https://weasyprint.org/) PDF generator.
+[PhpWeasyPrint](https://github.com/pontedilana/php-weasyprint) is a PHP wrapper for [WeasyPrint](https://weasyprint.org/) PDF generator.
 It allows you to generate PDF files from HTML string or URL.
 
 The WeasyPrintBundle provides a simple integration for your Symfony project.
@@ -136,12 +136,13 @@ class SomeController extends AbstractController
 ```php
 use Pontedilana\WeasyprintBundle\WeasyPrint\Response\PdfResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class SomeController extends AbstractController
 {
     public function pdf(Pontedilana\PhpWeasyPrint\Pdf $weasyprintPdf)
     {
-        $pageUrl = $this->generateUrl('homepage', [], true); // use absolute path!
+        $pageUrl = $this->generateUrl('homepage', [], UrlGeneratorInterface::ABSOLUTE_URL); // use an absolute URL!
 
         return new PdfResponse(
             $weasyprintPdf->getOutput($pageUrl),
