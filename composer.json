@@ -33,8 +33,8 @@
         "phpstan/phpstan-phpunit": "^2",
         "phpstan/phpstan-symfony": "^2",
         "phpunit/phpunit": "^11.5",
+        "symfony/filesystem": "^6.4 || ^7.4 || ^8.0",
         "symfony/framework-bundle": "^6.4 || ^7.4 || ^8.0",
-        "symfony/validator": "^6.4 || ^7.4 || ^8.0",
         "symfony/yaml": "^6.4 || ^7.4 || ^8.0"
     },
     "autoload": {
